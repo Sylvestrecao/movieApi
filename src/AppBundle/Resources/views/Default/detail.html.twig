@@ -58,7 +58,7 @@
             </div>
             {% for movieCast in movieDetailsCredit.body.cast %}
                 <div class="col-sm-6 col-md-4">
-                    <a href="">
+                    <a href="{{ path('people_details', {person_id: movieCast.id}) }}">
                         <div class="thumbnail text-center img-hover heigth-415">
                             {% if (movieCast.profile_path is defined) and (movieCast.profile_path is not null) %}
                             <img class="img-responsive img-circle" src="https://image.tmdb.org/t/p/w185{{ movieCast.profile_path }}" alt="{{ movieCast.name }}">

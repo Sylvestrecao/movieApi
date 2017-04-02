@@ -50,6 +50,18 @@ class MovieController extends Controller
             'movieDetailsCredit' => $movieDetailsCredit
         ));
     }
+    /**
+     * @Route("/person/{person_id}", name="people_details", requirements={"person_id": "\d+"})
+     * @Method("GET")
+     */
+    public function showPeopleDetailsAction($person_id)
+    {
+        $peopleDetails = Unirest\Request::get('https://api.themoviedb.org/3/person/'.$person_id.'?api_key=1ec8fb13de4288846a552aa419f958c2&language=en-US');
+
+        return $this->render('AppBundle:Default:people-details.html.twig', array(
+            'peopleDetails' => $peopleDetails
+        ));
+    }
 
     /**
      * @Route("/search/multi", name="movie_search")
