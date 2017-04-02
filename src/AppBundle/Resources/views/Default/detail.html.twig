@@ -1,0 +1,80 @@
+{% extends('layout/layout.html.twig') %}
+
+{% block body %}
+    <!-- Page Content -->
+    <div class="container">
+        <!-- Page Heading/Breadcrumbs -->
+        <div class="row mg-t-50">
+            <div class="col-lg-12">
+                <ol class="breadcrumb">
+                    <li><a href="{{ path('homepage') }}">Accueil</a>
+                    </li>
+                    <li class="active">{{ movieDetails.body.title }}</li>
+                </ol>
+            </div>
+        </div>
+        <!-- /.row -->
+        <!-- Movie Details Item Row -->
+        <div class="row">
+            <div class="col-md-6">
+                <img class="img-responsive" src="https://image.tmdb.org/t/p/w500{{ movieDetails.body.poster_path }}" alt="{{ movieDetails.body.title }}"/>
+            </div>
+            <div class="col-md-6">
+                <h3>{{ movieDetails.body.title }} <span class="text-italic color-concrete">({{ movieDetails.body.release_date|date("d/m/Y") }})</span></h3>
+                <h4>Synopsis</h4>
+                <p>{{ movieDetails.body.overview }}</p>
+                <h3>Informations</h3>
+                <ul>
+                    <li>Statut : {% if movieDetails.body.status == "Released" %} Terminé {% else %} En cours {% endif %}</li>
+                    <li>Titre originale : {{ movieDetails.body.original_title }}</li>
+                    <li>Budget : ${{ movieDetails.body.budget|number_format }}</li>
+                    <li>Recettes : ${{ movieDetails.body.revenue|number_format }}</li>
+                    {% if movieDetails.body.runtime > 0 %}
+                    <li>Durée :  {{ movieDetails.body.runtime }} min</li>
+                    {% endif %}
+                    <li>Sociétés de production :
+                        {% set i = 0 %}
+                        {% for productionCompany in movieDetails.body.production_companies %}
+                            <a href="#">{{ productionCompany.name }}</a>
+                            {% set i = i + 1 %}
+                            {% if movieDetails.body.production_companies|length > i %}/{% endif %}
+                        {% endfor %}
+                    </li>
+                </ul>
+                <h3>Genres</h3>
+                <ul class="nav nav-pills">
+                    {% for genre in movieDetails.body.genres %}
+                        <li class="active"><a href="#">{{ genre.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Movie Crew Row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header">Les acteurs</h3>
+            </div>
+            {% for movieCast in movieDetailsCredit.body.cast %}
+                <div class="col-sm-6 col-md-4">
+                    <a href="">
+                        <div class="thumbnail text-center img-hover heigth-415">
+                            {% if (movieCast.profile_path is defined) and (movieCast.profile_path is not null) %}
+                            <img class="img-responsive img-circle" src="https://image.tmdb.org/t/p/w185{{ movieCast.profile_path }}" alt="{{ movieCast.name }}">
+                            {% else %}
+                                <img class="img-responsive img-hover" src="{{ asset('img/image-not-found.jpg') }}" alt="image not found">
+                            {% endif %}
+                            <div class="caption">
+                                <h4>{{ movieCast.name }}</h4>
+                                <p>Rôle : {{ movieCast.character }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+{% endblock %}

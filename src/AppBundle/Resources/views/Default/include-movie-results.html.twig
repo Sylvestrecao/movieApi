@@ -1,0 +1,17 @@
+{% for movie in listMovies.body.results %}
+    {% if (movie.poster_path is defined) and (movie.poster_path is not null) %}
+    <div class="col-md-4 text-center">
+        <div class="panel panel-default heigth-800">
+            <div class="panel-heading">
+                <h4>{% if movie.title is defined %}{{ movie.title }}{% endif %}</h4>
+            </div>
+            <div class="panel-body">
+                <img class="img-responsive center-block" src="https://image.tmdb.org/t/p/w342{{ movie.poster_path }}" alt="{% if movie.title is defined %}{{ movie.title }}{% endif %}"/>
+                <hr>
+                <p>{% if movie.overview is defined %}{{ movie.overview | truncate(30) }}{% endif %}</p>
+                <a href="{{ path('movie_details', {movie_id: movie.id}) }}" class="btn btn-default">Plus d'information</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endfor %}
