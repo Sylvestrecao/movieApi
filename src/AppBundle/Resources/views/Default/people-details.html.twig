@@ -10,6 +10,7 @@
                 </ol>
             </div>
         </div>
+
         <!-- Movie Details Item Row -->
         <div class="row">
             <div class="col-md-4">
@@ -30,6 +31,28 @@
             </div>
         </div>
         <!-- /.row -->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header">Filmographie</h3>
+            </div>
+            {{ dump(peopleDetails) }}
+            {% for movie in peopleDetails|sortMovies %}
+                <div class="col-md-3 col-sm-6 col-xs-12 text-center">
+                    <a href="{{ path('movie_details', {movie_id: movie.id}) }}" class="img-hover">
+                        <div class="panel panel-default heigth-415">
+                            <div class="panel-heading">
+                                <h4>{% if movie.title is defined %}{{ movie.title }}{% endif %}</h4>
+                                <p>{% if movie.release_date is not null %}{{ movie.release_date|date("d/m/Y") }}{% endif %}</p>
+                            </div>
+                            <div class="panel-body">
+                                <img class="img-responsive center-block" src="https://image.tmdb.org/t/p/w154{{ movie.poster_path }}" alt="{% if movie.title is defined %}{{ movie.title }}{% endif %}"/>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 
 {% endblock %}

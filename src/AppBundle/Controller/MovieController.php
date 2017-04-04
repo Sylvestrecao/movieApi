@@ -55,7 +55,7 @@ class MovieController extends Controller
      */
     public function genreMoviesAction($genre_id, $genre_name)
     {
-        $genreMovies = Unirest\Request::get('https://api.themoviedb.org/3/genre/'.$genre_id.'/movies?api_key=1ec8fb13de4288846a552aa419f958c2&language=fr-FR&include_adult=false&sort_by=created_at.asc');
+        $genreMovies = Unirest\Request::get('https://api.themoviedb.org/3/genre/'.$genre_id.'/movies?api_key=1ec8fb13de4288846a552aa419f958c2&language=fr-FR&include_adult=false&sort_by=created_at.desc');
 
         return $this->render('AppBundle:Default:genre-movies.html.twig', array(
             'genreMovies' => $genreMovies,
@@ -69,8 +69,10 @@ class MovieController extends Controller
      */
     public function showPeopleDetailsAction($person_id)
     {
-        $peopleDetails = Unirest\Request::get('https://api.themoviedb.org/3/person/'.$person_id.'?api_key=1ec8fb13de4288846a552aa419f958c2&language=en-US');
-
+        $peopleDetails = Unirest\Request::get('https://api.themoviedb.org/3/person/'.$person_id.'?api_key=1ec8fb13de4288846a552aa419f958c2&language=en-US&append_to_response=movie_credits');
+        //$allMovies = $peopleDetails->body->movie_credits->cast;
+        //var_dump(count($allMovies));
+        
         return $this->render('AppBundle:Default:people-details.html.twig', array(
             'peopleDetails' => $peopleDetails
         ));

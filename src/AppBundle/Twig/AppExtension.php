@@ -7,6 +7,7 @@ class AppExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFilter('truncate', array($this, 'truncateFilter')),
+            new \Twig_SimpleFilter('sortMovies', array($this, 'sortFilter')),
         );
     }
     /**
@@ -24,6 +25,27 @@ class AppExtension extends \Twig_Extension
             return implode(' ', array_slice($words, 0, $max_words)) . $ending;
         }
         return $text;
+    }
+
+    /**
+     * Truncate a string
+     * @param $content
+     * @return string
+     */
+    public function sortFilter($content)
+    {
+        $allMovies = $content->body->movie_credits->cast;
+
+        for($i = 0; $i < count($allMovies) - 1; $i++){
+            if($allMovies[$i]->release_date < $allMovies[$i+1]->release_date){
+                $temp = $allMovies[$i];
+                $allMovies[$i] = $allMovies[$i+1];
+                $allMovies[$i+1] = $temp;
+                $i = 0;
+            }
+        }
+
+        return $allMovies;
     }
 
     public function getName()
