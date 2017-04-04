@@ -15,7 +15,6 @@
         {% set isFirst = true %}
         <div class="carousel-inner">
             {% for nowPlayingMovie in nowPlayingMovies.body.results %}
-
                 <div class="item {% if isFirst == true %} active {% endif %}">
                     <a href="{{ path('movie_details', {movie_id: nowPlayingMovie.id}) }}">
                         <div class="fill" style="background-image:url('https://image.tmdb.org/t/p/original{{ nowPlayingMovie.backdrop_path }}');"></div>
@@ -24,7 +23,6 @@
                         <h2>{{ nowPlayingMovie.title }}</h2>
                     </div>
                 </div>
-
                 {% set isFirst = false %}
             {% endfor %}
         </div>

@@ -38,7 +38,7 @@
                     <li>Sociétés de production :
                         {% set i = 0 %}
                         {% for productionCompany in movieDetails.body.production_companies %}
-                            <a href="#">{{ productionCompany.name }}</a>
+                            <a href="{{ path('company_movies', {company_id: productionCompany.id, company_name: productionCompany.name}) }}">{{ productionCompany.name }}</a>
                             {% set i = i + 1 %}
                             {% if movieDetails.body.production_companies|length > i %}/{% endif %}
                         {% endfor %}

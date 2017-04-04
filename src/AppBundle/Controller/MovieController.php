@@ -90,4 +90,19 @@ class MovieController extends Controller
             'movieSearchResults' => $movieSearchResults
         ));
     }
+
+    /**
+     * @Route("/company/{company_id}/{company_name}/movies", name="company_movies", requirements={"company_id": "\d+"})
+     * @Method("GET")
+     */
+    public function companyMoviesAction($company_id, $company_name)
+    {
+        $companyMovies = Unirest\Request::get('https://api.themoviedb.org/3/company/'.$company_id.'/movies?api_key=1ec8fb13de4288846a552aa419f958c2&language=fr-FR');
+
+        return $this->render('AppBundle:Default:company-movies.html.twig', array(
+            'companyMovies' => $companyMovies,
+            'companyName'  => $company_name
+        ));
+    }
+
 }
