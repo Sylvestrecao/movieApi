@@ -14,6 +14,7 @@
             </div>
         </div>
         <!-- /.row -->
+
         <!-- Movie Details Item Row -->
         <div class="row">
             <div class="col-md-6">
@@ -21,14 +22,16 @@
             </div>
             <div class="col-md-6">
                 <h3>{{ movieDetails.body.title }} <span class="text-italic color-concrete">({{ movieDetails.body.release_date|date("d/m/Y") }})</span></h3>
-                <h4>Synopsis</h4>
-                <p>{{ movieDetails.body.overview }}</p>
+                {% if movieDetails.body.overview is not null %}
+                    <h4>Synopsis</h4>
+                    <p>{{ movieDetails.body.overview }}</p>
+                {% endif %}
                 <h3>Informations</h3>
                 <ul>
                     <li>Statut : {% if movieDetails.body.status == "Released" %} Terminé {% else %} En cours {% endif %}</li>
                     <li>Titre originale : {{ movieDetails.body.original_title }}</li>
-                    <li>Budget : ${{ movieDetails.body.budget|number_format }}</li>
-                    <li>Recettes : ${{ movieDetails.body.revenue|number_format }}</li>
+                    <li>Budget : {% if movieDetails.body.budget > 0 %} ${{ movieDetails.body.budget|number_format }} {% else %} budget inconnu {% endif %}</li>
+                    <li>Recettes : {% if movieDetails.body.revenue > 0 %} ${{ movieDetails.body.revenue|number_format }} {% else %} recettes inconnu {% endif %}</li>
                     {% if movieDetails.body.runtime > 0 %}
                     <li>Durée :  {{ movieDetails.body.runtime }} min</li>
                     {% endif %}
@@ -44,7 +47,7 @@
                 <h3>Genres</h3>
                 <ul class="nav nav-pills">
                     {% for genre in movieDetails.body.genres %}
-                        <li class="active"><a href="#">{{ genre.name }}</a></li>
+                        <li class="active"><a href="{{ path('genre_movies', {genre_id: genre.id, genre_name: genre.name}) }}">{{ genre.name }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
@@ -56,12 +59,12 @@
             <div class="col-lg-12">
                 <h3 class="page-header">Les acteurs</h3>
             </div>
-            {% for movieCast in movieDetailsCredit.body.cast %}
+            {% for movieCast in movieDetails.body.credits.cast %}
                 <div class="col-sm-6 col-md-4">
                     <a href="{{ path('people_details', {person_id: movieCast.id}) }}">
                         <div class="thumbnail text-center img-hover heigth-415">
                             {% if (movieCast.profile_path is defined) and (movieCast.profile_path is not null) %}
-                            <img class="img-responsive img-circle" src="https://image.tmdb.org/t/p/w185{{ movieCast.profile_path }}" alt="{{ movieCast.name }}">
+                                <img class="img-responsive img-circle" src="https://image.tmdb.org/t/p/w185{{ movieCast.profile_path }}" alt="{{ movieCast.name }}">
                             {% else %}
                                 <img class="img-responsive img-hover" src="{{ asset('img/image-not-found.jpg') }}" alt="image not found">
                             {% endif %}
@@ -74,7 +77,53 @@
                 </div>
             {% endfor %}
         </div>
+
         <!-- /.row -->
+        {% if movieDetails.body.videos.results is not empty %}
+            <!-- Videos Row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">Vidéos</h3>
+                </div>
+                {% for video in movieDetails.body.videos.results %}
+                <div class="col-md-6">
+                    <h5>{{ video.name }}</h5>
+                    <div class="video-container">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ video.key }}" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- /.row -->
+        {% endif %}
+
+        <!-- Recommandation Row -->
+        {% if movieDetails.body.recommendations.results is not empty %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">Recommandations</h3>
+                </div>
+                {% set limit = 8 %}
+                {% for key, recommendation in movieDetails.body.recommendations.results %}
+                    {% if key < limit %}
+                        <div class="col-md-3 col-sm-6 col-xs-12 text-center">
+                            <a href="" class="img-hover">
+                                <div class="panel panel-default heigth-415">
+                                    <div class="panel-heading">
+                                        <h4>{% if recommendation.title is defined %}{{ recommendation.title }}{% endif %}</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <img class="img-responsive center-block" src="https://image.tmdb.org/t/p/w154{{ recommendation.poster_path }}" alt="{% if recommendation.title is defined %}{{ recommendation.title }}{% endif %}"/>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <!-- /.row -->
+
     </div>
     <!-- /.container -->
 {% endblock %}

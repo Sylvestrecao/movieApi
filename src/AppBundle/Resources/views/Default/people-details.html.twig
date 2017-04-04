@@ -1,6 +1,5 @@
 {% extends('layout/layout.html.twig') %}
 
-
 {% block body %}
     <div class="container">
         <div class="row mg-t-50">
@@ -18,8 +17,10 @@
             </div>
             <div class="col-md-8">
                 <h3>{{ peopleDetails.body.name }}</h3>
-                <h4>Biographie</h4>
-                <p>{% if (peopleDetails.body.biography is defined) and (peopleDetails.body.biography is not null) %}{{ peopleDetails.body.biography }}{% endif %}</p>
+                {% if (peopleDetails.body.biography is defined) and (peopleDetails.body.biography is not null) %}
+                    <h4>Biographie</h4>
+                    <p>{{ peopleDetails.body.biography }}</p>
+                {% endif %}
                 <h3>Informations personnelles</h3>
                 <ul>
                     <li>Genre : {% if peopleDetails.body.gender == 1 %} Femme {% else %} Homme {% endif %}</li>
