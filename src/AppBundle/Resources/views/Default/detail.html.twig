@@ -77,8 +77,8 @@
                 </div>
             {% endfor %}
         </div>
-
         <!-- /.row -->
+
         {% if movieDetails.body.videos.results is not empty %}
             <!-- Videos Row -->
             <div class="row">
@@ -107,7 +107,7 @@
                 {% for key, recommendation in movieDetails.body.recommendations.results %}
                     {% if key < limit %}
                         <div class="col-md-3 col-sm-6 col-xs-12 text-center">
-                            <a href="" class="img-hover">
+                            <a href="{{ path('movie_details', {movie_id: recommendation.id}) }}" class="img-hover">
                                 <div class="panel panel-default heigth-415">
                                     <div class="panel-heading">
                                         <h4>{% if recommendation.title is defined %}{{ recommendation.title }}{% endif %}</h4>
