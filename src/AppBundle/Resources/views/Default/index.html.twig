@@ -3,7 +3,7 @@
     <!-- Header Carousel -->
     <header id="myCarousel" class="carousel slide">
         <!-- Indicators -->
-        <ol class="carousel-indicators">
+        <ol class="carousel-indicators hidden-xs">
             {% set isFirstSlide = true %}
             {% for i in 0..nowPlayingMovies.body.results|length - 1 %}
                 <li data-target="#myCarousel" data-slide-to="{{ i }}" class="{% if isFirstSlide == true %} active {% endif %}"></li>
@@ -35,7 +35,7 @@
             <span class="icon-next"></span>
         </a>
     </header>
-
+    {{ dump(nowPlayingMovies) }}
     <!-- Page Content -->
     <div class="container">
         <div class="row mg-t-50">
@@ -50,6 +50,27 @@
                     <div class="tab-pane fade active in" id="nowPlaying">
                         <div class="row">
                             {{ render(controller('AppBundle:Movie:includeMovieResults', {listMovies: nowPlayingMovies})) }}
+                            <div class="col-md-12 text-center">
+                                <ul class="pagination" id="pagination">
+                                    {% if nowPlayingMovies.body.page >= 2 %}
+                                        <li><a href="{{ path('homepage_bis', {page_number: nowPlayingMovies.body.page - 1}) }}">&laquo;</a></li>
+                                    {% else %}
+                                        <li class="disabled"><a href="#pagination">&laquo;</a></li>
+                                    {% endif %}
+                                    {% for page in 1..nowPlayingMovies.body.total_pages %}
+                                        {% if page == nowPlayingMovies.body.page %}
+                                            <li class="active"><a href="{{ path('homepage_bis', {page_number: page}) }}">{{ page }}</a></li>
+                                        {% else %}
+                                            <li><a href="{{ path('homepage_bis', {page_number: page}) }}">{{ page }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if nowPlayingMovies.body.page + 1 < nowPlayingMovies.body.total_pages %}
+                                        <li><a href="{{ path('homepage_bis', {page_number: nowPlayingMovies.body.page + 1 }) }}">&raquo;</a></li>
+                                    {% else %}
+                                        <li class="disabled"><a href="#pagination">&raquo;</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="popular">

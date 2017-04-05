@@ -15,16 +15,35 @@ class MovieController extends Controller
      * @Route("/", name="homepage")
      * @Method("GET")
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
-        $popularMovies = Unirest\Request::get($this->getParameter('popularMovies'));
-        $nowPlayingMovies = Unirest\Request::get($this->getParameter('nowPlayingMovies'));
-        $upcomingMovies = Unirest\Request::get($this->getParameter('upcomingMovies'));
-        $topRatedMovies = Unirest\Request::get($this->getParameter('topRatedMovies'));
+        $nowPlayingMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/now_playing?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1&region=FR');
+        $popularMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/popular?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1&region=FR');
+        $upcomingMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/upcoming?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1&region=FR');
+        $topRatedMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/top_rated?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1&region=FR');
 
         return $this->render('AppBundle:Default:index.html.twig', array(
-            'popularMovies' => $popularMovies,
             'nowPlayingMovies' => $nowPlayingMovies,
+            'popularMovies' => $popularMovies,
+            'upcomingMovies' => $upcomingMovies,
+            'topRatedMovies' => $topRatedMovies
+        ));
+    }
+
+    /**
+     * @Route("/page/{page_number}", name="homepage_bis", requirements={"page_number": "\d+"})
+     * @Method("GET")
+     */
+    public function indexPageAction($page_number)
+    {
+        $nowPlayingMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/now_playing?api_key='.$this->getParameter('api_key').'&language=fr-FR&page='.$page_number.'&region=FR');
+        $popularMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/popular?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1&region=FR');
+        $upcomingMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/upcoming?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1&region=FR');
+        $topRatedMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/top_rated?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1&region=FR');
+
+        return $this->render('AppBundle:Default:index.html.twig', array(
+            'nowPlayingMovies' => $nowPlayingMovies,
+            'popularMovies' => $popularMovies,
             'upcomingMovies' => $upcomingMovies,
             'topRatedMovies' => $topRatedMovies
         ));
@@ -43,7 +62,7 @@ class MovieController extends Controller
      */
     public function showMovieDetailsAction($movie_id)
     {
-        $movieDetails = Unirest\Request::get('https://api.themoviedb.org/3/movie/'.$movie_id.'?api_key=1ec8fb13de4288846a552aa419f958c2&language=fr-FR&append_to_response=videos,credits,recommendations');
+        $movieDetails = Unirest\Request::get('https://api.themoviedb.org/3/movie/'.$movie_id.'?api_key='.$this->getParameter('api_key').'&language=fr-FR&append_to_response=videos,credits,recommendations');
 
         return $this->render('AppBundle:Default:detail.html.twig', array(
             'movieDetails' => $movieDetails
@@ -56,7 +75,7 @@ class MovieController extends Controller
      */
     public function genreMoviesAction($genre_id, $genre_name)
     {
-        $genreMovies = Unirest\Request::get('https://api.themoviedb.org/3/genre/'.$genre_id.'/movies?api_key=1ec8fb13de4288846a552aa419f958c2&language=fr-FR&include_adult=false&sort_by=created_at.desc');
+        $genreMovies = Unirest\Request::get('https://api.themoviedb.org/3/genre/'.$genre_id.'/movies?api_key='.$this->getParameter('api_key').'&language=fr-FR&include_adult=false&sort_by=created_at.desc');
 
         return $this->render('AppBundle:Default:genre-movies.html.twig', array(
             'genreMovies' => $genreMovies,
@@ -70,12 +89,12 @@ class MovieController extends Controller
      */
     public function showPeopleDetailsAction($person_id)
     {
-        $peopleDetails = Unirest\Request::get('https://api.themoviedb.org/3/person/'.$person_id.'?api_key=1ec8fb13de4288846a552aa419f958c2&language=en-US&append_to_response=movie_credits');
+        $peopleDetails = Unirest\Request::get('https://api.themoviedb.org/3/person/'.$person_id.'?api_key='.$this->getParameter('api_key').'&language=en-US&append_to_response=movie_credits');
 
         $birthday = new DateTime($peopleDetails->body->birthday);
         $today = new DateTime("today");
         $actorAge = $today->diff($birthday)->y;
-  
+
         return $this->render('AppBundle:Default:people-details.html.twig', array(
             'peopleDetails' => $peopleDetails,
             'actorAge' => $actorAge
@@ -90,7 +109,7 @@ class MovieController extends Controller
     {
         $searchQuery = $request->query->get('searchQuery');
 
-        $movieSearchResults = Unirest\Request::get('https://api.themoviedb.org/3/search/multi?api_key=1ec8fb13de4288846a552aa419f958c2&language=fr-FR&query='.$searchQuery.'&page=1&include_adult=false&region=FR');
+        $movieSearchResults = Unirest\Request::get('https://api.themoviedb.org/3/search/multi?api_key='.$this->getParameter('api_key').'&language=fr-FR&query='.$searchQuery.'&page=1&include_adult=false&region=FR');
 
         return $this->render('AppBundle:Default:search-result-page.html.twig', array(
             'movieSearchResults' => $movieSearchResults
@@ -103,7 +122,7 @@ class MovieController extends Controller
      */
     public function companyMoviesAction($company_id, $company_name)
     {
-        $companyMovies = Unirest\Request::get('https://api.themoviedb.org/3/company/'.$company_id.'/movies?api_key=1ec8fb13de4288846a552aa419f958c2&language=fr-FR');
+        $companyMovies = Unirest\Request::get('https://api.themoviedb.org/3/company/'.$company_id.'/movies?api_key='.$this->getParameter('api_key').'&language=fr-FR');
 
         return $this->render('AppBundle:Default:company-movies.html.twig', array(
             'companyMovies' => $companyMovies,
