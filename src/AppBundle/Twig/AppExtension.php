@@ -36,15 +36,23 @@ class AppExtension extends \Twig_Extension
     {
         $allMovies = $content->body->movie_credits->cast;
 
-        for($i = 0; $i < count($allMovies) - 1; $i++){
+        /*for($i = 0; $i < count($allMovies) - 1; $i++){
             if($allMovies[$i]->release_date < $allMovies[$i+1]->release_date){
                 $temp = $allMovies[$i];
                 $allMovies[$i] = $allMovies[$i+1];
                 $allMovies[$i+1] = $temp;
                 $i = 0;
             }
+        }*/
+        for($i = 0; $i < count($allMovies); $i++){
+            for($j = $i+1; $j < count($allMovies); $j++){
+                if($allMovies[$i]->release_date < $allMovies[$j]->release_date){
+                    $temp = $allMovies[$i];
+                    $allMovies[$i] = $allMovies[$j];
+                    $allMovies[$j] = $temp;
+                }
+            }
         }
-
         return $allMovies;
     }
 

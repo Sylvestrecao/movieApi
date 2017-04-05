@@ -36,7 +36,6 @@
             <div class="col-lg-12">
                 <h3 class="page-header">Filmographie</h3>
             </div>
-            {{ dump(peopleDetails) }}
             {% for movie in peopleDetails|sortMovies %}
                 <div class="col-md-3 col-sm-6 col-xs-12 text-center">
                     <a href="{{ path('movie_details', {movie_id: movie.id}) }}" class="img-hover">
@@ -46,7 +45,11 @@
                                 <p>{% if movie.release_date is not null %}{{ movie.release_date|date("d/m/Y") }}{% endif %}</p>
                             </div>
                             <div class="panel-body">
-                                <img class="img-responsive center-block" src="https://image.tmdb.org/t/p/w154{{ movie.poster_path }}" alt="{% if movie.title is defined %}{{ movie.title }}{% endif %}"/>
+                                {% if (movie.poster_path is defined) and (movie.poster_path is not null) %}
+                                    <img class="img-responsive center-block" src="https://image.tmdb.org/t/p/w154{{ movie.poster_path }}" alt="{% if movie.title is defined %}{{ movie.title }}{% endif %}"/>
+                                {% else %}
+                                    <img class="img-responsive img-hover center-block" src="{{ asset('img/image-not-found.jpg') }}" alt="image not found">
+                                {% endif %}
                             </div>
                         </div>
                     </a>
