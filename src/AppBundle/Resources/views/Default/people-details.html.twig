@@ -10,14 +10,14 @@
                 </ol>
             </div>
         </div>
-
+        {{ dump(peopleDetails.body.birthday) }}
         <!-- Movie Details Item Row -->
         <div class="row">
             <div class="col-md-4">
                 <img class="img-responsive" src="https://image.tmdb.org/t/p/w300{{ peopleDetails.body.profile_path }}" alt="{{ peopleDetails.body.name }}"/>
             </div>
             <div class="col-md-8">
-                <h3>{{ peopleDetails.body.name }}</h3>
+                <h3>{{ peopleDetails.body.name }} <span class="text-italic color-concrete font-size-25">({{ actorAge }} ans)</span></h3>
                 {% if (peopleDetails.body.biography is defined) and (peopleDetails.body.biography is not null) %}
                     <h4>Biographie</h4>
                     <p>{{ peopleDetails.body.biography }}</p>

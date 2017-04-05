@@ -3,9 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="49137df9-f26a-4588-b755-ec5678dfe4a6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/MovieController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/MovieController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/detail.html.twig" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/detail.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/genre-movies.html.twig" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/genre-movies.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/people-details.html.twig" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/people-details.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Twig/AppExtension.php" afterPath="$PROJECT_DIR$/src/AppBundle/Twig/AppExtension.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/css/modern-business.css" afterPath="$PROJECT_DIR$/web/css/modern-business.css" />
     </list>
     <ignored path="movieApi.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,8 +32,8 @@
       <file leaf-file-name="MovieController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/MovieController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="539">
-              <caret line="74" column="8" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="8" />
+            <state relative-caret-position="427">
+              <caret line="77" column="2" selection-start-line="77" selection-start-column="2" selection-end-line="77" selection-end-column="2" />
               <folding>
                 <element signature="e#40#100#0#PHP" expanded="true" />
               </folding>
@@ -39,21 +41,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AppExtension.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Twig/AppExtension.php">
+      <file leaf-file-name="people-details.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Default/people-details.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+            <state relative-caret-position="532">
+              <caret line="19" column="124" selection-start-line="19" selection-start-column="124" selection-end-line="19" selection-end-column="124" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="people-details.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Default/people-details.html.twig">
+      <file leaf-file-name="genre-movies.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Default/genre-movies.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1064">
-              <caret line="38" column="35" selection-start-line="38" selection-start-column="34" selection-end-line="38" selection-end-column="35" />
+            <state relative-caret-position="224">
+              <caret line="8" column="68" selection-start-line="8" selection-start-column="68" selection-end-line="8" selection-end-column="68" />
               <folding />
             </state>
           </provider>
@@ -62,11 +64,11 @@
       <file leaf-file-name="detail.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Default/detail.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="17" column="39" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
+            <state relative-caret-position="756">
+              <caret line="27" column="104" selection-start-line="27" selection-start-column="50" selection-end-line="27" selection-end-column="104" />
               <folding>
-                <element signature="e#4877#5611#0#Twig" expanded="false" />
-                <element signature="e#5657#7095#0#Twig" expanded="false" />
+                <element signature="e#4888#5622#0#Twig" expanded="false" />
+                <element signature="e#5668#7106#0#Twig" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -90,15 +92,15 @@
         <option value="$PROJECT_DIR$/web/config.php" />
         <option value="$PROJECT_DIR$/app/config/security.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/include-movie-results.html.twig" />
-        <option value="$PROJECT_DIR$/web/css/modern-business.css" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/genre-movies.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/index.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/company-details.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/company-movies.html.twig" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Controller/MovieController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Twig/AppExtension.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/people-details.html.twig" />
+        <option value="$PROJECT_DIR$/web/css/modern-business.css" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/genre-movies.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/detail.html.twig" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/MovieController.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/people-details.html.twig" />
       </list>
     </option>
   </component>
@@ -421,12 +423,12 @@
       <workItem from="1491132018662" duration="17718000" />
       <workItem from="1491245332859" duration="8039000" />
       <workItem from="1491290343272" duration="31665000" />
-      <workItem from="1491392891285" duration="4024000" />
+      <workItem from="1491392891285" duration="11754000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="122064000" />
+    <option name="totallyTimeSpent" value="129794000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -518,8 +520,8 @@
         <state relative-caret-position="420">
           <caret line="15" column="22" selection-start-line="5" selection-start-column="7" selection-end-line="15" selection-end-column="22" />
           <folding>
-            <element signature="e#4877#5611#0#Twig" expanded="false" />
-            <element signature="e#5657#7095#0#Twig" expanded="false" />
+            <element signature="e#4888#5622#0#Twig" expanded="false" />
+            <element signature="e#5668#7106#0#Twig" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -742,20 +744,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Default/search-result-page.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/css/modern-business.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="45" column="14" selection-start-line="45" selection-start-column="14" selection-end-line="45" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Default/company-details.html.twig" />
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Default/index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
@@ -772,14 +760,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Default/genre-movies.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="9" column="25" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Default/company-movies.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="448">
@@ -788,39 +768,63 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/css/modern-business.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="670">
+          <caret line="63" column="16" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Twig/AppExtension.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="616">
+          <caret line="52" column="17" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Default/search-result-page.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/MovieController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="539">
-          <caret line="74" column="8" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="8" />
+        <state relative-caret-position="427">
+          <caret line="77" column="2" selection-start-line="77" selection-start-column="2" selection-end-line="77" selection-end-column="2" />
           <folding>
             <element signature="e#40#100#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Twig/AppExtension.php">
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Default/people-details.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+        <state relative-caret-position="532">
+          <caret line="19" column="124" selection-start-line="19" selection-start-column="124" selection-end-line="19" selection-end-column="124" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Default/people-details.html.twig">
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Default/genre-movies.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1064">
-          <caret line="38" column="35" selection-start-line="38" selection-start-column="34" selection-end-line="38" selection-end-column="35" />
+        <state relative-caret-position="224">
+          <caret line="8" column="68" selection-start-line="8" selection-start-column="68" selection-end-line="8" selection-end-column="68" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Default/detail.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="17" column="39" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
+        <state relative-caret-position="756">
+          <caret line="27" column="104" selection-start-line="27" selection-start-column="50" selection-end-line="27" selection-end-column="104" />
           <folding>
-            <element signature="e#4877#5611#0#Twig" expanded="false" />
-            <element signature="e#5657#7095#0#Twig" expanded="false" />
+            <element signature="e#4888#5622#0#Twig" expanded="false" />
+            <element signature="e#5668#7106#0#Twig" expanded="false" />
           </folding>
         </state>
       </provider>

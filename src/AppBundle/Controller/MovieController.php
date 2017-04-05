@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Unirest;
+use DateTime;
 class MovieController extends Controller
 {
     /**
@@ -70,11 +71,14 @@ class MovieController extends Controller
     public function showPeopleDetailsAction($person_id)
     {
         $peopleDetails = Unirest\Request::get('https://api.themoviedb.org/3/person/'.$person_id.'?api_key=1ec8fb13de4288846a552aa419f958c2&language=en-US&append_to_response=movie_credits');
-        //$allMovies = $peopleDetails->body->movie_credits->cast;
-        //var_dump(count($allMovies));
-        
+
+        $birthday = new DateTime($peopleDetails->body->birthday);
+        $today = new DateTime("today");
+        $actorAge = $today->diff($birthday)->y;
+  
         return $this->render('AppBundle:Default:people-details.html.twig', array(
-            'peopleDetails' => $peopleDetails
+            'peopleDetails' => $peopleDetails,
+            'actorAge' => $actorAge
         ));
     }
 
