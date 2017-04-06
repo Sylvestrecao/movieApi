@@ -8,10 +8,6 @@ imports:
 parameters:
     locale: en
     api_key: 1ec8fb13de4288846a552aa419f958c2
-    nowPlayingMovies: https://api.themoviedb.org/3/movie/now_playing?api_key=1ec8fb13de4288846a552aa419f958c2&language=fr-FR&page=1&region=FR
-    popularMovies: https://api.themoviedb.org/3/movie/popular?api_key=1ec8fb13de4288846a552aa419f958c2&language=fr-FR&page=1&region=FR
-    upcomingMovies: https://api.themoviedb.org/3/movie/upcoming?api_key=1ec8fb13de4288846a552aa419f958c2&language=fr-FR&page=1&region=FR
-    topRatedMovies: https://api.themoviedb.org/3/movie/top_rated?api_key=1ec8fb13de4288846a552aa419f958c2&language=fr-FR&page=1&region=FR
 
 framework:
     #esi:             ~

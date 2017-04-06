@@ -15,3 +15,22 @@
     </div>
     {% endif %}
 {% endfor %}
+
+
+{% for people in listMovies.body.results %}
+    {% if (people.profile_path is defined) and (people.profile_path is not null) %}
+        <div class="col-md-4 text-center">
+            <a href="{{ path('people_details', {person_id: people.id}) }}">
+                <div class="panel panel-default heigth-415 img-hover">
+                    <div class="panel-heading">
+                        <h4>{% if people.name is defined %}{{ people.name }}{% endif %}</h4>
+                    </div>
+                    <div class="panel-body">
+                        <img class="img-responsive center-block" src="https://image.tmdb.org/t/p/w185{{ people.profile_path }}" alt="{% if people.name is defined %}{{ people.name }}{% endif %}"/>
+                    </div>
+                </div>
+            </a>
+        </div>
+    {% endif %}
+{% endfor %}
+

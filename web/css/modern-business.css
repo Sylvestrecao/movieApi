@@ -42,6 +42,9 @@ header.carousel .fill {
     background-size: cover;
 }
 
+.pd-0{
+    padding: 0;
+}
 .mg-0{
     margin: 0;
 }
@@ -62,6 +65,9 @@ header.carousel .fill {
 }
 .font-size-25{
     font-size: 25px;
+}
+.font-size-18{
+    font-size: 18px;
 }
 /* 404 Page Styles */
 

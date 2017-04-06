@@ -5,7 +5,7 @@
         <!-- Indicators -->
         <ol class="carousel-indicators hidden-xs">
             {% set isFirstSlide = true %}
-            {% for i in 0..nowPlayingMovies.body.results|length - 1 %}
+            {% for i in 0..nowPlayingMoviesSlider.body.results|length - 1 %}
                 <li data-target="#myCarousel" data-slide-to="{{ i }}" class="{% if isFirstSlide == true %} active {% endif %}"></li>
                 {% set isFirstSlide = false %}
             {% endfor %}
@@ -14,7 +14,7 @@
         <!-- Wrapper for slides -->
         {% set isFirst = true %}
         <div class="carousel-inner">
-            {% for nowPlayingMovie in nowPlayingMovies.body.results %}
+            {% for nowPlayingMovie in nowPlayingMoviesSlider.body.results %}
                 <div class="item {% if isFirst == true %} active {% endif %}">
                     <a href="{{ path('movie_details', {movie_id: nowPlayingMovie.id}) }}">
                         <div class="fill" style="background-image:url('https://image.tmdb.org/t/p/original{{ nowPlayingMovie.backdrop_path }}');"></div>
@@ -35,7 +35,7 @@
             <span class="icon-next"></span>
         </a>
     </header>
-    {{ dump(nowPlayingMovies) }}
+
     <!-- Page Content -->
     <div class="container">
         <div class="row mg-t-50">
@@ -50,9 +50,9 @@
                     <div class="tab-pane fade active in" id="nowPlaying">
                         <div class="row">
                             {{ render(controller('AppBundle:Movie:includeMovieResults', {listMovies: nowPlayingMovies})) }}
-                            <div class="col-md-12 text-center">
-                                <ul class="pagination" id="pagination">
-                                    {% if nowPlayingMovies.body.page >= 2 %}
+                            <div class="col-md-12">
+                                {#<ul class="pagination" id="pagination">
+                                     {% if nowPlayingMovies.body.page >= 2 %}
                                         <li><a href="{{ path('homepage_bis', {page_number: nowPlayingMovies.body.page - 1}) }}">&laquo;</a></li>
                                     {% else %}
                                         <li class="disabled"><a href="#pagination">&laquo;</a></li>
@@ -69,7 +69,39 @@
                                     {% else %}
                                         <li class="disabled"><a href="#pagination">&raquo;</a></li>
                                     {% endif %}
-                                </ul>
+                                </ul>#}
+                                <div class="row">
+                                    <div class="col-md-7 text-right">
+                                        <button class="btn btn-primary" type="submit" form="previousPage">Précédent</button>
+                                        <button class="btn btn-default" type="submit" form="nextPage">Suivant</button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="row">
+                                            <form action="{{ path('homepage') }}">
+                                                <div class="col-md-5">
+                                                    <select class="form-control" name="page-a-laffiche" onchange="this.form.submit()">
+                                                        {% for page in 1..nowPlayingMovies.body.total_pages %}
+                                                            {% if page == nowPlayingMovies.body.page %}
+                                                                <option value="{{ page }}" selected>{{ page }}</option>
+                                                            {% else %}
+                                                                <option value="{{ page }}">{{ page }}</option>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-7 pd-0">
+                                                    <span class="font-size-18">of {{ nowPlayingMovies.body.total_pages }}</span>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form action="{{ path('homepage') }}" id="previousPage">
+                                    <input type="hidden" name="page-a-laffiche" value="{{ nowPlayingMovies.body.page - 1 }}">
+                                </form>
+                                <form action="{{ path('homepage') }}" id="nextPage">
+                                    <input type="hidden" name="page-a-laffiche" value="{{ nowPlayingMovies.body.page + 1 }}">
+                                </form>
                             </div>
                         </div>
                     </div>

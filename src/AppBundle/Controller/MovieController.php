@@ -15,14 +15,20 @@ class MovieController extends Controller
      * @Route("/", name="homepage")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $nowPlayingMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/now_playing?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1&region=FR');
-        $popularMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/popular?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1&region=FR');
+        $nowPlayingMoviesSlider = Unirest\Request::get('https://api.themoviedb.org/3/movie/now_playing?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1&region=FR');
+        $nowPlayingMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/now_playing?api_key='.$this->getParameter('api_key').'&language=fr-FR&page='.$request->query->get('page-a-laffiche').'&region=FR');
+        $popularMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/popular?api_key='.$this->getParameter('api_key').'&language=fr-FR&page='.$request->query->get('page-populaire').'&region=FR');
         $upcomingMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/upcoming?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1&region=FR');
         $topRatedMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/top_rated?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1&region=FR');
 
+        if($request->query->get('page-a-laffiche') > $nowPlayingMovies->body->total_pages){
+          return $this->redirectToRoute('homepage');
+        }
+
         return $this->render('AppBundle:Default:index.html.twig', array(
+            'nowPlayingMoviesSlider' => $nowPlayingMoviesSlider,
             'nowPlayingMovies' => $nowPlayingMovies,
             'popularMovies' => $popularMovies,
             'upcomingMovies' => $upcomingMovies,
@@ -34,14 +40,16 @@ class MovieController extends Controller
      * @Route("/page/{page_number}", name="homepage_bis", requirements={"page_number": "\d+"})
      * @Method("GET")
      */
-    public function indexPageAction($page_number)
+    public function indexPageAction(Request $request, $page_number)
     {
-        $nowPlayingMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/now_playing?api_key='.$this->getParameter('api_key').'&language=fr-FR&page='.$page_number.'&region=FR');
-        $popularMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/popular?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1&region=FR');
+        $nowPlayingMoviesSlider = Unirest\Request::get('https://api.themoviedb.org/3/movie/now_playing?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1&region=FR');
+        $nowPlayingMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/now_playing?api_key='.$this->getParameter('api_key').'&language=fr-FR&page='.$request->query->get('page').'&region=FR');
+        $popularMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/popular?api_key='.$this->getParameter('api_key').'&language=fr-FR&page='.$page_number.'&region=FR');
         $upcomingMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/upcoming?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1&region=FR');
         $topRatedMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/top_rated?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1&region=FR');
 
         return $this->render('AppBundle:Default:index.html.twig', array(
+            'nowPlayingMoviesSlider' => $nowPlayingMoviesSlider,
             'nowPlayingMovies' => $nowPlayingMovies,
             'popularMovies' => $popularMovies,
             'upcomingMovies' => $upcomingMovies,
