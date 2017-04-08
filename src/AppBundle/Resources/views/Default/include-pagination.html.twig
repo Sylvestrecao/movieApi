@@ -1,0 +1,38 @@
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-7 text-right">
+            {% if listMovies.body.page >= 2 %}
+                <button class="btn btn-primary" type="submit" form="{{ previousFormId }}">Précédent</button>
+            {% endif %}
+            {% if listMovies.body.page < listMovies.body.total_pages %}
+                <button class="btn btn-default" type="submit" form="{{ nextFormId }}">Suivant</button>
+            {% endif %}
+        </div>
+        <div class="col-md-2">
+            <div class="row">
+                <form action="{{ path('homepage') }}">
+                    <div class="col-md-5">
+                        <select class="form-control" name="{{ inputName }}" onchange="this.form.submit()">
+                            {% for page in 1..listMovies.body.total_pages %}
+                                {% if page == listMovies.body.page %}
+                                    <option value="{{ page }}" selected>{{ page }}</option>
+                                {% else %}
+                                    <option value="{{ page }}">{{ page }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-7 pd-0">
+                        <span class="font-size-18">of {{ listMovies.body.total_pages }}</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <form action="{{ path('homepage') }}" id="{{ previousFormId }}">
+        <input type="hidden" name="{{ inputName }}" value="{{ listMovies.body.page - 1 }}">
+    </form>
+    <form action="{{ path('homepage') }}" id="{{ nextFormId }}">
+        <input type="hidden" name="{{ inputName }}" value="{{ listMovies.body.page + 1 }}">
+    </form>
+</div>

@@ -56,7 +56,7 @@
                     <h3>Genres</h3>
                     <ul class="nav nav-pills">
                         {% for genre in movieDetails.body.genres %}
-                            <li class="active"><a href="{{ path('genre_movies', {genre_id: genre.id, genre_name: genre.name}) }}">{{ genre.name }}</a></li>
+                            <li class="active mg-t-3 mg-r-3"><a href="{{ path('genre_movies', {genre_id: genre.id, genre_name: genre.name}) }}">{{ genre.name }}</a></li>
                         {% endfor %}
                     </ul>
                 {% endif %}

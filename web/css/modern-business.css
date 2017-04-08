@@ -41,7 +41,9 @@ header.carousel .fill {
     background-position: center;
     background-size: cover;
 }
-
+.nav-pills > li + li{
+    margin-left: 0px;
+}
 .pd-0{
     padding: 0;
 }
@@ -50,6 +52,12 @@ header.carousel .fill {
 }
 .mg-t-50{
     margin-top: 50px;
+}
+.mg-t-3{
+    margin-top: 3px;
+}
+.mg-r-3{
+    margin-right: 3px;
 }
 .heigth-800{
     height: 800px;

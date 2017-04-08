@@ -20,13 +20,14 @@ class MovieController extends Controller
         $nowPlayingMoviesSlider = Unirest\Request::get('https://api.themoviedb.org/3/movie/now_playing?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1&region=FR');
         $nowPlayingMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/now_playing?api_key='.$this->getParameter('api_key').'&language=fr-FR&page='.$request->query->get('page-a-laffiche').'&region=FR');
         $popularMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/popular?api_key='.$this->getParameter('api_key').'&language=fr-FR&page='.$request->query->get('page-populaire').'&region=FR');
-        $upcomingMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/upcoming?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1&region=FR');
-        $topRatedMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/top_rated?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1&region=FR');
+        $upcomingMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/upcoming?api_key='.$this->getParameter('api_key').'&language=fr-FR&page='.$request->query->get('page-prochainement').'&region=FR');
+        $topRatedMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/top_rated?api_key='.$this->getParameter('api_key').'&language=fr-FR&page='.$request->query->get('page-meilleurs-notes').'&region=FR');
 
-        if($request->query->get('page-a-laffiche') > $nowPlayingMovies->body->total_pages){
-          return $this->redirectToRoute('homepage');
-        }
-
+       /* $currentPage = (int)$request->query->get('page-a-laffiche');
+        if($currentPage < 1 || $currentPage > $nowPlayingMovies->body->total_pages){
+            return $this->redirectToRoute('homepage', array('page-a-laffiche' => 1));
+        }*/
+        
         return $this->render('AppBundle:Default:index.html.twig', array(
             'nowPlayingMoviesSlider' => $nowPlayingMoviesSlider,
             'nowPlayingMovies' => $nowPlayingMovies,
@@ -61,6 +62,16 @@ class MovieController extends Controller
     {
         return $this->render('AppBundle:Default:include-movie-results.html.twig', array(
             'listMovies' => $listMovies
+        ));
+    }
+
+    public function includePaginationAction($listMovies, $previousFormId, $nextFormId, $inputName)
+    {
+        return $this->render('AppBundle:Default:include-pagination.html.twig', array(
+            'listMovies' => $listMovies,
+            'previousFormId' => $previousFormId,
+            'nextFormId' => $nextFormId,
+            'inputName' => $inputName
         ));
     }
 
