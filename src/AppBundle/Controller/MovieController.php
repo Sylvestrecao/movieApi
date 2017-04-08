@@ -125,7 +125,7 @@ class MovieController extends Controller
     }
 
     /**
-     * @Route("/company/{company_id}/{company_name}/movies", name="company_movies", requirements={"company_id": "\d+"})
+     * @Route("/company/{company_id}/{company_name}/movies", name="company_movies", requirements={"company_id": "\d+", "company_name"=".+"})
      * @Method("GET")
      */
     public function companyMoviesAction($company_id, $company_name)
