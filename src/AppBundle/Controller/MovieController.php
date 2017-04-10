@@ -65,13 +65,14 @@ class MovieController extends Controller
         ));
     }
 
-    public function includePaginationAction($listMovies, $previousFormId, $nextFormId, $inputName)
+    public function includePaginationAction($listMovies, $previousFormId, $nextFormId, $inputName, $action)
     {
         return $this->render('AppBundle:Default:include-pagination.html.twig', array(
             'listMovies' => $listMovies,
             'previousFormId' => $previousFormId,
             'nextFormId' => $nextFormId,
-            'inputName' => $inputName
+            'inputName' => $inputName,
+            'action' => $action
         ));
     }
 
@@ -92,12 +93,18 @@ class MovieController extends Controller
      * @Route("/genre/{genre_id}/{genre_name}/movies", name="genre_movies", requirements={"genre_id": "\d+"})
      * @Method("GET")
      */
-    public function genreMoviesAction($genre_id, $genre_name)
+    public function genreMoviesAction(Request $request, $genre_id, $genre_name)
     {
-        $genreMovies = Unirest\Request::get('https://api.themoviedb.org/3/genre/'.$genre_id.'/movies?api_key='.$this->getParameter('api_key').'&language=fr-FR&include_adult=false&sort_by=created_at.desc');
+        if($request->query->get($genre_name) == null){
+            $genreMovies = Unirest\Request::get('https://api.themoviedb.org/3/genre/'.$genre_id.'/movies?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1&sort_by=created_at.desc');
+        }
+        else{
+            $genreMovies = Unirest\Request::get('https://api.themoviedb.org/3/genre/'.$genre_id.'/movies?api_key='.$this->getParameter('api_key').'&language=fr-FR&page='.$request->query->get($genre_name).'&sort_by=created_at.desc');
+        }
 
         return $this->render('AppBundle:Default:genre-movies.html.twig', array(
             'genreMovies' => $genreMovies,
+            'genreId' => $genre_id,
             'genreName'   => $genre_name
         ));
     }

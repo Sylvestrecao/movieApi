@@ -10,7 +10,7 @@
         </div>
         <div class="col-md-2">
             <div class="row">
-                <form action="{{ path('homepage') }}">
+                <form action="{{ action }}">
                     <div class="col-md-5">
                         <select class="form-control" name="{{ inputName }}" onchange="this.form.submit()">
                             {% for page in 1..listMovies.body.total_pages %}
@@ -29,10 +29,10 @@
             </div>
         </div>
     </div>
-    <form action="{{ path('homepage') }}" id="{{ previousFormId }}">
+    <form action="{{ action }}" id="{{ previousFormId }}">
         <input type="hidden" name="{{ inputName }}" value="{{ listMovies.body.page - 1 }}">
     </form>
-    <form action="{{ path('homepage') }}" id="{{ nextFormId }}">
+    <form action="{{ action }}" id="{{ nextFormId }}">
         <input type="hidden" name="{{ inputName }}" value="{{ listMovies.body.page + 1 }}">
     </form>
 </div>

@@ -15,8 +15,10 @@
             </div>
         </div>
         <!-- /.row -->
+
         <div class="row mg-t-50">
             {{ render(controller('AppBundle:Movie:includeMovieResults', {listMovies: genreMovies})) }}
+            {{ render(controller('AppBundle:Movie:includePagination', {listMovies: genreMovies, previousFormId: 'previousPageGenre', nextFormId: 'nextPageGenre', inputName: genreName, action: path('genre_movies', {genre_id: genreId, genre_name: genreName})})) }}
         </div>
     </div>
 

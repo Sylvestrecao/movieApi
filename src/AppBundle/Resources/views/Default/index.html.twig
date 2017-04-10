@@ -69,25 +69,25 @@
                                         <li class="disabled"><a href="#pagination">&raquo;</a></li>
                                     {% endif %}
                                 </ul>#}
-                            {{ render(controller('AppBundle:Movie:includePagination', {listMovies: nowPlayingMovies, previousFormId: 'previousPageNow', nextFormId: 'nextPageNow', inputName: 'page-a-laffiche'})) }}
+                            {{ render(controller('AppBundle:Movie:includePagination', {listMovies: nowPlayingMovies, previousFormId: 'previousPageNow', nextFormId: 'nextPageNow', inputName: 'page-a-laffiche', action: path('homepage')})) }}
                         </div>
                     </div>
                     <div class="tab-pane fade" id="popular">
                         <div class="row">
                             {{ render(controller('AppBundle:Movie:includeMovieResults', {listMovies: popularMovies})) }}
-                            {{ render(controller('AppBundle:Movie:includePagination', {listMovies: popularMovies, previousFormId: 'previousPagePopular', nextFormId: 'nextPagePopular', inputName: 'page-populaire'})) }}
+                            {{ render(controller('AppBundle:Movie:includePagination', {listMovies: popularMovies, previousFormId: 'previousPagePopular', nextFormId: 'nextPagePopular', inputName: 'page-populaire', action: path('homepage')})) }}
                         </div>
                     </div>
                     <div class="tab-pane fade" id="upcoming">
                         <div class="row">
                             {{ render(controller('AppBundle:Movie:includeMovieResults', {listMovies: upcomingMovies})) }}
-                            {{ render(controller('AppBundle:Movie:includePagination', {listMovies: upcomingMovies, previousFormId: 'previousPageUpcoming', nextFormId: 'nextPageUpcoming', inputName: 'page-prochainement'})) }}
+                            {{ render(controller('AppBundle:Movie:includePagination', {listMovies: upcomingMovies, previousFormId: 'previousPageUpcoming', nextFormId: 'nextPageUpcoming', inputName: 'page-prochainement', action: path('homepage')})) }}
                         </div>
                     </div>
                     <div class="tab-pane fade" id="topRated">
                         <div class="row">
                             {{ render(controller('AppBundle:Movie:includeMovieResults', {listMovies: topRatedMovies})) }}
-                            {{ render(controller('AppBundle:Movie:includePagination', {listMovies: topRatedMovies, previousFormId: 'previousPageTopRated', nextFormId: 'nextPageTopRated', inputName: 'page-meilleurs-notes'})) }}
+                            {{ render(controller('AppBundle:Movie:includePagination', {listMovies: topRatedMovies, previousFormId: 'previousPageTopRated', nextFormId: 'nextPageTopRated', inputName: 'page-meilleurs-notes', action: path('homepage')})) }}
                         </div>
                     </div>
                 </div>
