@@ -21,7 +21,30 @@ function swapTabColor(){
     });
 }
 
-function loadPageOnScroll(depth){
+function addFavorite(movieId, movieTitle, posterPath){
+    var path = Routing.generate('user_add_favorite_movie');
+    var movieData = {"Movie_Id": movieId, "Movie_Title": movieTitle, "Poster_Path": posterPath};
+
+    $.ajax({
+        type: "POST",
+        data: movieData,
+        url: path,
+        success: function(data){
+            if(data){
+                console.log(data)
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
+
+$(".addFavorite").click(function(event){
+    event.preventDefault();
+});
+
+/*function loadPageOnScroll(depth){
     $(window).scroll(function(){
         if($(window).scrollTop() == $(document).height() - $(window).height()){
             var path = 'https://api.themoviedb.org/3/movie/now_playing?api_key=1ec8fb13de4288846a552aa419f958c2&language=fr-FR&page='+depth+'&region=FR'
@@ -38,5 +61,4 @@ function loadPageOnScroll(depth){
             });
         }
     })
-
-}
+}*/
