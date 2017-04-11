@@ -20,4 +20,14 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
             ->getResult()
             ;
     }
+
+    public function findMovieInDatabase($id)
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.movieDbId = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

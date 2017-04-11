@@ -20,11 +20,11 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user_id = $this->getUser()->getId();
+        
         $favoriteMovies = $em->getRepository('AppBundle:Movie')->getUserFavoriteMovies($user_id);
 
-
         return $this->render('AppBundle:User:user-profile.html.twig', array(
-           'favoriteMovies' => $favoriteMovies
+            'favoriteMovies' => $favoriteMovies
         ));
     }
 
@@ -39,15 +39,26 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         if($request->isXmlHttpRequest()){
-            $data = $request->request->all();
-            $user = $this->getUser();
-            $movie = new Movie();
 
-            $movie->setMovieDbId($data['Movie_Id']);
-            $movie->setTitle($data['Movie_Title']);
-            $movie->setPosterPath($data['Poster_Path']);
-            $movie->addUser($user);
-            $em->persist($movie);
+            $data = $request->request->all();
+            $movieInDatabase = $em->getRepository('AppBundle:Movie')->findMovieInDatabase($data['Movie_Id']);
+            $user = $this->getUser();
+
+            if(!empty($movieInDatabase)){
+                // get the movie as an object
+                $movieDb = $movieInDatabase[0];
+                $movieDb->addUser($user);
+                $em->persist($movieDb);
+            }
+            else{
+                $movie = new Movie();
+                $movie->setMovieDbId($data['Movie_Id']);
+                $movie->setTitle($data['Movie_Title']);
+                $movie->setPosterPath($data['Poster_Path']);
+                $movie->addUser($user);
+                $em->persist($movie);
+            }
+
             $em->flush();
 
         }
