@@ -2,8 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Comment;
+use AppBundle\Form\CommentType;
 use AppBundle\Entity\Movie;
-use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -28,6 +29,35 @@ class UserController extends Controller
         ));
     }
 
+    /**
+     * @Route("/{movie_id}/add_comment", name="add_comment", requirements={"movie_id": "\d+"})
+     * @Method("POST")
+     */
+    public function addCommentAction(Request $request, $movie_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comment = new Comment();
+        
+        $form = $this->createForm(CommentType::class, $comment, array(
+            'action' => $this->generateUrl('add_comment', array("movie_id" => $movie_id)),
+            'method' => 'POST'
+        ));
+
+        if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
+            $comment->setUser($this->getUser());
+            $comment->setMovieId($movie_id);
+
+            $em->persist($comment);
+            $em->flush();
+            $this->addFlash('success', 'Votre commentaire a été ajouté avec succès !');
+
+            return $this->redirectToRoute('movie_details', array('movie_id' => $movie_id));
+        }
+
+        return $this->render('AppBundle:User:add-comment.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
 
     /**
      * Add favorite movie
