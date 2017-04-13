@@ -10,4 +10,13 @@ namespace AppBundle\Repository;
  */
 class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getMovieComments($id)
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.movie_id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

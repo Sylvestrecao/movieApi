@@ -23,10 +23,10 @@ class MovieController extends Controller
         $upcomingMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/upcoming?api_key='.$this->getParameter('api_key').'&language=fr-FR&page='.$request->query->get('page-prochainement').'&region=FR');
         $topRatedMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/top_rated?api_key='.$this->getParameter('api_key').'&language=fr-FR&page='.$request->query->get('page-meilleurs-notes').'&region=FR');
 
-       /* $currentPage = (int)$request->query->get('page-a-laffiche');
+        /* $currentPage = (int)$request->query->get('page-a-laffiche');
         if($currentPage < 1 || $currentPage > $nowPlayingMovies->body->total_pages){
             return $this->redirectToRoute('homepage', array('page-a-laffiche' => 1));
-        }*/
+        } */
         
         return $this->render('AppBundle:Default:index.html.twig', array(
             'nowPlayingMoviesSlider' => $nowPlayingMoviesSlider,
@@ -82,10 +82,13 @@ class MovieController extends Controller
      */
     public function showMovieDetailsAction($movie_id)
     {
+        $em = $this->getDoctrine()->getManager();
         $movieDetails = Unirest\Request::get('https://api.themoviedb.org/3/movie/'.$movie_id.'?api_key='.$this->getParameter('api_key').'&language=fr-FR&append_to_response=videos,credits,recommendations');
+        $movieComments = $em->getRepository('AppBundle:Comment')->getMovieComments($movie_id);
 
         return $this->render('AppBundle:Default:detail.html.twig', array(
-            'movieDetails' => $movieDetails
+            'movieDetails' => $movieDetails,
+            'movieComments' => $movieComments
         ));
     }
 

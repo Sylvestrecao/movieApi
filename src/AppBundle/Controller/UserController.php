@@ -73,7 +73,7 @@ class UserController extends Controller
             $data = $request->request->all();
             $movieInDatabase = $em->getRepository('AppBundle:Movie')->findMovieInDatabase($data['Movie_Id']);
             $user = $this->getUser();
-
+            // If movie is in database, only add new user to this movie
             if(!empty($movieInDatabase)){
                 // get the movie as an object
                 $movieDb = $movieInDatabase[0];
@@ -88,9 +88,7 @@ class UserController extends Controller
                 $movie->addUser($user);
                 $em->persist($movie);
             }
-
             $em->flush();
-
         }
 
         return new JsonResponse($data);
