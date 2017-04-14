@@ -1,0 +1,50 @@
+<div class="mg-l-50">
+{% for child in comment.children %}
+    <div class="col-md-12">
+        <div class="panel panel-white post">
+            <div class="post-heading">
+                <div class="pull-left image">
+                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                </div>
+                <div class="pull-left meta">
+                    <div class="title h5">
+                        <a href="#"><b>{{ child.user.getUsername() }}</b></a>
+                    </div>
+                    <h6 class="text-muted time">{{ child.createdAt|date("H:i:s d/m/Y") }}</h6>
+                </div>
+            </div>
+            <div class="post-description">
+                <p>{{ child.content }}</p>
+                <div class="stats">
+                    <a href="#" class="btn btn-default stat-item" title="j'aime ce commentaire">
+                        <i class="fa fa-thumbs-up icon"></i>{{ child.commentLike }}
+                    </a>
+                    <a href="#" class="btn btn-default stat-item" title="je n'aime pas ce commentaire">
+                        <i class="fa fa-thumbs-down icon"></i>{{ child.commentDislike }}
+                    </a>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        {% if depth < 2 %}
+                            <a href="#replyTo{{ child.id }}" data-toggle="collapse" class="btn btn-default stat-item" title="répondre à ce commentaire">
+                                <i class="fa fa-reply icon"></i>
+                            </a>
+                            <div class="mg-t-50 mg-l-50 collapse" id="replyTo{{ child.id }}">
+                                <p>Votre réponse à ce commentaire :</p>
+                                {{ render(controller('AppBundle:User:addCommentResponse', {movie_id: comment.getMovieId(), comment_parent_id: child.id})) }}
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        {% if depth < 2 %}
+                            <a href="{{ path('fos_user_security_login') }}" class="btn btn-default stat-item" title="répondre à ce commentaire">
+                                <i class="fa fa-reply icon"></i>
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if child.children is not empty %}
+        {{ render(controller('AppBundle:User:recursiveComment', {comment: child, depth: depth + 1})) }}
+    {% endif %}
+{% endfor %}
+</div>

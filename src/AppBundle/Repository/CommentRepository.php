@@ -13,6 +13,10 @@ class CommentRepository extends \Doctrine\ORM\EntityRepository
     public function getMovieComments($id)
     {
         return $this->createQueryBuilder('c')
+            ->leftJoin("c.user", "u")
+            ->addSelect("u")
+            ->leftJoin("c.children", "ch")
+            ->addSelect("ch")
             ->where('c.movie_id = :id')
             ->setParameter('id', $id)
             ->getQuery()

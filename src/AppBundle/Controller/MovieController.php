@@ -85,7 +85,7 @@ class MovieController extends Controller
         $em = $this->getDoctrine()->getManager();
         $movieDetails = Unirest\Request::get('https://api.themoviedb.org/3/movie/'.$movie_id.'?api_key='.$this->getParameter('api_key').'&language=fr-FR&append_to_response=videos,credits,recommendations');
         $movieComments = $em->getRepository('AppBundle:Comment')->getMovieComments($movie_id);
-
+        
         return $this->render('AppBundle:Default:detail.html.twig', array(
             'movieDetails' => $movieDetails,
             'movieComments' => $movieComments

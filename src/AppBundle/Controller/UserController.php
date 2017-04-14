@@ -60,6 +60,46 @@ class UserController extends Controller
     }
 
     /**
+     * @Route("/{movie_id}/add_comment/{comment_parent_id}", name="add_comment_response", requirements={"movie_id": "\d+", "comment_parent_id": "\d+"})
+     * @Method("POST")
+     */
+    public function addCommentResponseAction(Request $request, $movie_id, $comment_parent_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $commentParent = $em->getRepository('AppBundle:Comment')->find($comment_parent_id);
+        $comment = new Comment();
+
+        $form = $this->createForm(CommentType::class, $comment, array(
+            'action' => $this->generateUrl('add_comment_response', array("movie_id" => $movie_id, "comment_parent_id" => $comment_parent_id)),
+            'method' => 'POST'
+        ));
+
+        if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
+            $comment->setUser($this->getUser());
+            $comment->setMovieId($movie_id);
+            $comment->setParent($commentParent);
+
+            $em->persist($comment);
+            $em->flush();
+            $this->addFlash('success', 'Votre commentaire a été ajouté avec succès !');
+
+            return $this->redirectToRoute('movie_details', array('movie_id' => $movie_id));
+        }
+
+        return $this->render('AppBundle:User:add-comment.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    public function recursiveCommentAction(Comment $comment, $depth)
+    {
+        return $this->render('AppBundle:User:recursive-comment.html.twig', array(
+            'comment' => $comment,
+            'depth' => $depth
+        ));
+    }
+
+    /**
      * Add favorite movie
      *
      * @Route("/add/favorite-movie", options={"expose"=true}, name="user_add_favorite_movie")

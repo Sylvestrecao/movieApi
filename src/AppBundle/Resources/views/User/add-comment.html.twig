@@ -1,7 +1,6 @@
 {{ form_start(form) }}
 {{ form_errors(form) }}
 <div class="form-group">
-    {{ form_label(form.content, "Commentaire:") }}
     {{ form_errors(form.content) }}
     {{ form_widget(form.content, {'attr': {'class': 'form-control', 'rows': '3', 'style': 'border: 1px solid #ecf0f1;'}}) }}
 </div>
