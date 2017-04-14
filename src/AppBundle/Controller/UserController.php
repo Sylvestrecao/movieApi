@@ -133,4 +133,50 @@ class UserController extends Controller
 
         return new JsonResponse($data);
     }
+
+    /**
+     * @Route("/add/like-comment", options={"expose"=true}, name="add_like_comment")
+     * @Method("POST")
+     */
+    public function addLikeOnCommentAction(Request $request)
+    {
+        if($request->isXmlHttpRequest()){
+            $data = $request->request->all();
+            $id = $data['Comment_Id'];
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $comment = $em->getRepository('AppBundle:Comment')->find($id);
+        $likeNumber = $comment->getCommentLike();
+        $newLikeNumber = $likeNumber + 1;
+        $comment->setCommentLike($newLikeNumber);
+
+        $em->persist($comment);
+        $em->flush();
+
+        return new Response($newLikeNumber);
+    }
+
+    /**
+     * @Route("/add/dislike-comment", options={"expose"=true}, name="add_dislike_comment")
+     * @Method("POST")
+     */
+    public function addDislikeOnCommentAction(Request $request)
+    {
+        if($request->isXmlHttpRequest()){
+            $data = $request->request->all();
+            $id = $data['Comment_Id'];
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $comment = $em->getRepository('AppBundle:Comment')->find($id);
+        $dislikeNumber = $comment->getCommentDislike();
+        $newDislikeNumber = $dislikeNumber + 1;
+        $comment->setCommentDislike($newDislikeNumber);
+
+        $em->persist($comment);
+        $em->flush();
+
+        return new Response($newDislikeNumber);
+    }
 }

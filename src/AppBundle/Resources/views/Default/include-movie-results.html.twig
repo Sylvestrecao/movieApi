@@ -11,7 +11,7 @@
                 <p>{% if movie.overview is defined %}{{ movie.overview | truncate(30) }}{% endif %}</p>
                 <a href="{{ path('movie_details', {movie_id: movie.id}) }}" class="btn btn-default">Plus d'information</a>
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <a class="addFavorite" href="#" onclick="addFavorite({{ movie.id }}, '{{ movie.title }}', '{{ movie.poster_path }}')">Ajouter aux favoris</a>
+                    <a class="remove-event" href="#" onclick="addFavoriteMovie({{ movie.id }}, '{{ movie.title }}', '{{ movie.poster_path }}')">Ajouter aux favoris</a>
                 {% endif %}
             </div>
         </div>

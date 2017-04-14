@@ -16,11 +16,11 @@
             <div class="post-description">
                 <p>{{ child.content }}</p>
                 <div class="stats">
-                    <a href="#" class="btn btn-default stat-item" title="j'aime ce commentaire">
-                        <i class="fa fa-thumbs-up icon"></i>{{ child.commentLike }}
+                    <a href="#" class="btn btn-default stat-item remove-event" title="j'aime ce commentaire" onclick="addLikeOnComment({{ child.id }})">
+                        <i class="fa fa-thumbs-up icon"></i><span id="likeComment{{ child.id }}">{{ child.commentLike }}</span>
                     </a>
-                    <a href="#" class="btn btn-default stat-item" title="je n'aime pas ce commentaire">
-                        <i class="fa fa-thumbs-down icon"></i>{{ child.commentDislike }}
+                    <a href="#" class="btn btn-default stat-item remove-event" title="je n'aime pas ce commentaire" onclick="addDislikeOnComment({{ child.id }})">
+                        <i class="fa fa-thumbs-down icon"></i><span id="dislikeComment{{ child.id }}">{{ child.commentDislike }}</span>
                     </a>
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                         {% if depth < 2 %}

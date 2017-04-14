@@ -83,6 +83,9 @@ header.carousel .fill {
 .display-none{
     display: none;
 }
+.clear-both{
+    clear: both;
+}
 
 /* 404 Page Styles */
 

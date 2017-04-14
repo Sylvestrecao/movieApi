@@ -21,7 +21,7 @@ function swapTabColor(){
     });
 }
 
-function addFavorite(movieId, movieTitle, posterPath){
+function addFavoriteMovie(movieId, movieTitle, posterPath){
     var path = Routing.generate('user_add_favorite_movie');
     var movieData = {"Movie_Id": movieId, "Movie_Title": movieTitle, "Poster_Path": posterPath};
 
@@ -40,7 +40,45 @@ function addFavorite(movieId, movieTitle, posterPath){
     });
 }
 
-$(".addFavorite").click(function(event){
+function addLikeOnComment(commentId){
+    var path = Routing.generate('add_like_comment');
+    var comment_id = {"Comment_Id": commentId};
+
+    $.ajax({
+        type: "POST",
+        data: comment_id,
+        url: path,
+        success: function(data){
+            if(data){
+               $("#likeComment" + commentId).text(data)
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
+
+function addDislikeOnComment(commentId){
+    var path = Routing.generate('add_dislike_comment');
+    var comment_id = {"Comment_Id": commentId};
+
+    $.ajax({
+        type: "POST",
+        data: comment_id,
+        url: path,
+        success: function(data){
+            if(data){
+                $("#dislikeComment" + commentId).text(data)
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
+
+$(".remove-event").click(function(event){
     event.preventDefault();
 });
 
