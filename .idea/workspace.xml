@@ -5,7 +5,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/detail.html.twig" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/detail.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/views/User/recursive-comment.html.twig" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/User/recursive-comment.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Resources/views/User/user-profile.html.twig" afterPath="$PROJECT_DIR$/src/AppBundle/Resources/views/User/user-profile.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Twig/AppExtension.php" afterPath="$PROJECT_DIR$/src/AppBundle/Twig/AppExtension.php" />
     </list>
     <ignored path="movieApi.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,21 +52,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user-profile.html.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="user-profile.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/User/user-profile.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
-              <caret line="37" column="48" selection-start-line="37" selection-start-column="48" selection-end-line="37" selection-end-column="48" />
+            <state relative-caret-position="364">
+              <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="detail.html.twig" pinned="false" current-in-tab="false">
+      <file leaf-file-name="detail.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Default/detail.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4648">
-              <caret line="171" column="46" selection-start-line="171" selection-start-column="46" selection-end-line="171" selection-end-column="73" />
+            <state relative-caret-position="483">
+              <caret line="178" column="38" selection-start-line="178" selection-start-column="38" selection-end-line="178" selection-end-column="38" />
               <folding>
                 <element signature="e#7340#7653#0#Twig" expanded="false" />
               </folding>
@@ -77,8 +77,8 @@
       <file leaf-file-name="recursive-comment.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/User/recursive-comment.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="4" column="38" selection-start-line="4" selection-start-column="38" selection-end-line="4" selection-end-column="38" />
+            <state relative-caret-position="336">
+              <caret line="12" column="79" selection-start-line="12" selection-start-column="79" selection-end-line="12" selection-end-column="79" />
               <folding />
             </state>
           </provider>
@@ -99,7 +99,6 @@
         <option value="$PROJECT_DIR$/web/config.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/company-details.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/company-movies.html.twig" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Twig/AppExtension.php" />
         <option value="$PROJECT_DIR$/web/app_dev.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/search-result-page.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/people-details.html.twig" />
@@ -129,6 +128,7 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/genre-movies.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/User/user-profile.html.twig" />
         <option value="$PROJECT_DIR$/app/config/parameters.yml" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Twig/AppExtension.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/Default/detail.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Resources/views/User/recursive-comment.html.twig" />
       </list>
@@ -646,12 +646,12 @@
       <workItem from="1492030893034" duration="1717000" />
       <workItem from="1492110261893" duration="8399000" />
       <workItem from="1492153947882" duration="34028000" />
-      <workItem from="1492246122567" duration="8475000" />
+      <workItem from="1492246122567" duration="11989000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="326518000" />
+    <option name="totallyTimeSpent" value="330032000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -703,13 +703,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Util/TokenGenerator.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Model/UserInterface.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2275">
@@ -840,17 +833,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Default/people-details.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/css/bootstrap.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="5047" column="1" selection-start-line="5047" selection-start-column="1" selection-end-line="5047" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -917,6 +904,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="581">
           <caret line="86" column="16" selection-start-line="86" selection-start-column="16" selection-end-line="86" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1052,29 +1040,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Default/detail.html.twig">
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/User/user-profile.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4648">
-          <caret line="171" column="46" selection-start-line="171" selection-start-column="46" selection-end-line="171" selection-end-column="73" />
-          <folding>
-            <element signature="e#7340#7653#0#Twig" expanded="false" />
-          </folding>
+        <state relative-caret-position="364">
+          <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Default/people-details.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-756">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Twig/AppExtension.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="637">
+          <caret line="54" column="22" selection-start-line="54" selection-start-column="22" selection-end-line="54" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/User/recursive-comment.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="4" column="38" selection-start-line="4" selection-start-column="38" selection-end-line="4" selection-end-column="38" />
+        <state relative-caret-position="336">
+          <caret line="12" column="79" selection-start-line="12" selection-start-column="79" selection-end-line="12" selection-end-column="79" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/User/user-profile.html.twig">
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/views/Default/detail.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="37" column="48" selection-start-line="37" selection-start-column="48" selection-end-line="37" selection-end-column="48" />
-          <folding />
+        <state relative-caret-position="483">
+          <caret line="178" column="38" selection-start-line="178" selection-start-column="38" selection-end-line="178" selection-end-column="38" />
+          <folding>
+            <element signature="e#7340#7653#0#Twig" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

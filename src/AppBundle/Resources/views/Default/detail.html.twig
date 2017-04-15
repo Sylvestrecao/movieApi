@@ -175,7 +175,7 @@
                                     <div class="title h5">
                                         <a href="#"><b>{{ comment.user.getUsername() }}</b></a>
                                     </div>
-                                    <h6 class="text-muted time">{{ comment.createdAt|date("H:i:s d/m/Y") }}</h6>
+                                    <h6 class="text-muted time">{{ comment.createdAt|formatedDate }}</h6>
                                 </div>
                             </div>
                             <div class="post-description">

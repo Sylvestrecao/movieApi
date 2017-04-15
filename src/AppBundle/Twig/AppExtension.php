@@ -8,6 +8,7 @@ class AppExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFilter('truncate', array($this, 'truncateFilter')),
             new \Twig_SimpleFilter('sortMovies', array($this, 'sortFilter')),
+            new \Twig_SimpleFilter('formatedDate', array($this, 'formatedDate')),
         );
     }
     /**
@@ -28,22 +29,14 @@ class AppExtension extends \Twig_Extension
     }
 
     /**
-     * Truncate a string
+     * sort array item by release date
      * @param $content
-     * @return string
+     * @return array
      */
     public function sortFilter($content)
     {
         $allMovies = $content->body->movie_credits->cast;
 
-        /*for($i = 0; $i < count($allMovies) - 1; $i++){
-            if($allMovies[$i]->release_date < $allMovies[$i+1]->release_date){
-                $temp = $allMovies[$i];
-                $allMovies[$i] = $allMovies[$i+1];
-                $allMovies[$i+1] = $temp;
-                $i = 0;
-            }
-        }*/
         for($i = 0; $i < count($allMovies); $i++){
             for($j = $i+1; $j < count($allMovies); $j++){
                 if($allMovies[$i]->release_date < $allMovies[$j]->release_date){
@@ -54,6 +47,17 @@ class AppExtension extends \Twig_Extension
             }
         }
         return $allMovies;
+    }
+
+    /**
+     * sort array item by release date
+     * @param $content
+     * @return string 
+     */
+    public function formatedDate($content)
+    {
+        $date = $content->format('\à H:i:s \l\e d/m/Y ');
+        return $date;
     }
 
     public function getName()
