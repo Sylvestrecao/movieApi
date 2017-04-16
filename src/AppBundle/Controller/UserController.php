@@ -14,22 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 class UserController extends Controller
 {
     /**
-     * @Route("/user/profile", name="user_profile")
-     * @Method("GET")
-     */
-    public function userIndexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $user_id = $this->getUser()->getId();
-        
-        $favoriteMovies = $em->getRepository('AppBundle:Movie')->getUserFavoriteMovies($user_id);
-
-        return $this->render('AppBundle:User:user-profile.html.twig', array(
-            'favoriteMovies' => $favoriteMovies
-        ));
-    }
-
-    /**
      * @Route("/{movie_id}/add_comment", name="add_comment", requirements={"movie_id": "\d+"})
      * @Method("POST")
      */

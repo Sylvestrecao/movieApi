@@ -31,9 +31,11 @@ security:
             remember_me:
               secret:     %secret% # %secret% est un paramètre de parameter
 
+
     access_control:
         - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https, host: intothemovie.sylvestre-cao\.fr$ }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/admin, role: ROLE_ADMIN }
+
