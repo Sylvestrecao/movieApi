@@ -16,7 +16,6 @@ class LoadUserData implements FixtureInterface
         $user->setPlainPassword('user');
         $user->setEnabled(true);
         $user->setRoles(array('ROLE_USER'));
-        $user->setComments('test');
 
         $manager->persist($user);
         $manager->flush();
