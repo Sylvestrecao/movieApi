@@ -10,6 +10,18 @@ function selectTabActiveOnRefresh(){
         }
     });
 }
+function selectButtonTabActiveOnRefresh(){
+    $(function() {
+        $('button[data-toggle="tab"]').on('click', function(e) {
+            window.localStorage.setItem('activeTab', $(e.target).attr('href'));
+        });
+        var activeTab = window.localStorage.getItem('activeTab');
+        if (activeTab) {
+            $('button[data-toggle="tab"]').removeClass("btn-primary")
+            $('#profileTab button[href="' + activeTab + '"]').tab('show').addClass("btn-primary");
+        }
+    });
+}
 
 function swapTabColor(){
     $(document).ready(function() {
