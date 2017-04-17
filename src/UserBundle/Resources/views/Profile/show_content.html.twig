@@ -53,10 +53,15 @@
                         {% endfor %}
                     </div>
                     <div class="tab-pane fade in" id="tab3">
-                        <h3>This is tab 3</h3>
-                        {{ render(controller('UserBundle:Profile:edit')) }}
+                        <h3>Mes informations</h3>
                         <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
                         <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+
+                        <h3>Editer mon profil</h3>
+                        {{ render(controller('UserBundle:Profile:edit')) }}
+
+                        <h3>Changer mon mot de passe</h3>
+                        {{ render(controller('UserBundle:ChangePassword:changePassword')) }}
                     </div>
                 </div>
             </div>
