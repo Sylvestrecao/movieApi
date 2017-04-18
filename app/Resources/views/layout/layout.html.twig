@@ -49,7 +49,8 @@
                 </form>
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                     <li>
-                        <a href="#">Bonjour {{ app.user.username }}</a>
+                        {% set currentHour = "now"|date("d/m/Y H:i:s", "Europe/Paris") %}
+                        <a href="#">{% if currentHour|isNight == true %}Bonsoir{% else %}Bonjour{% endif %} {{ app.user.username }}</a>
                     </li>
                     <li>
                         <a href="{{ path('fos_user_profile_show') }}">Mon profil</a>

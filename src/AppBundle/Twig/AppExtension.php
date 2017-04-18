@@ -1,6 +1,7 @@
 <?php // src/AppBundle/Twig/AppExtension.php
 namespace AppBundle\Twig;
-
+use DateTime;
+use DateTimeZone;
 class AppExtension extends \Twig_Extension
 {
     public function getFilters()
@@ -9,6 +10,7 @@ class AppExtension extends \Twig_Extension
             new \Twig_SimpleFilter('truncate', array($this, 'truncateFilter')),
             new \Twig_SimpleFilter('sortMovies', array($this, 'sortFilter')),
             new \Twig_SimpleFilter('formatedDate', array($this, 'formatedDate')),
+            new \Twig_SimpleFilter('isNight', array($this, 'isNight')),
         );
     }
     /**
@@ -58,6 +60,25 @@ class AppExtension extends \Twig_Extension
     {
         $date = $content->format('\à H:i:s \l\e d/m/Y ');
         return $date;
+    }
+
+    /**
+     * sort array item by release date
+     * @param $content
+     * @return boolean
+     */
+    public function isNight($content)
+    {
+        $date = new DateTime('now', new DateTimeZone('Europe/Paris'));
+        $nightHour = $date->setTime(18, 0);
+        $nightHour = $date->format('d/m/Y H:i:s');
+
+        if($content > $nightHour){
+            return true;
+        }
+        else{
+           return false;
+        }
     }
 
     public function getName()
