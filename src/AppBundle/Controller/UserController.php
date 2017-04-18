@@ -35,7 +35,7 @@ class UserController extends Controller
             $em->flush();
             $this->addFlash('success', 'Votre commentaire a été ajouté avec succès !');
 
-            return $this->redirectToRoute('movie_details', array('movie_id' => $movie_id));
+            return $this->redirectToRoute('movie_details', array('movie_id' => $movie_id, '_fragment' => 'commentSection'));
         }
 
         return $this->render('AppBundle:User:add-comment.html.twig', array(
@@ -67,7 +67,7 @@ class UserController extends Controller
             $em->flush();
             $this->addFlash('success', 'Votre commentaire a été ajouté avec succès !');
 
-            return $this->redirectToRoute('movie_details', array('movie_id' => $movie_id));
+            return $this->redirectToRoute('movie_details', array('movie_id' => $movie_id, '_fragment' => 'commentSection'));
         }
 
         return $this->render('AppBundle:User:add-comment.html.twig', array(
