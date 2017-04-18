@@ -160,7 +160,21 @@
                 </div>
             {% else %}
                 <div class="col-md-12">
-                    <p><a href="{{ path('fos_user_security_login') }}">Connectez-vous pour ajouter un commentaire</a></p>
+                    <a href="#" data-toggle="modal" data-target="#loginModal">Connectez-vous pour ajouter un commentaire</a>
+                    <div class="modal fade" id="loginModal" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title text-center">Connectez-vous</h4>
+                                </div>
+                                <div class="modal-body">
+                                    {{ render(controller('UserBundle:Security:loginModal')) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             {% endif %}
             {% for comment in movieComments %}

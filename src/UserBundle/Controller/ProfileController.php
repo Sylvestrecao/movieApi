@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Controller\ProfileController as BaseController;
 
-class ProfileController extends Controller
+class ProfileController extends BaseController
 {
     public function showAction()
     {
