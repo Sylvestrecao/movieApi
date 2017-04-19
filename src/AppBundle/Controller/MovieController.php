@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Cookie;
 use Unirest;
 use DateTime;
 class MovieController extends Controller
@@ -22,7 +23,7 @@ class MovieController extends Controller
         $popularMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/popular?api_key='.$this->getParameter('api_key').'&language=fr-FR&page='.$request->query->get('page-populaire').'&region=FR');
         $upcomingMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/upcoming?api_key='.$this->getParameter('api_key').'&language=fr-FR&page='.$request->query->get('page-prochainement').'&region=FR');
         $topRatedMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/top_rated?api_key='.$this->getParameter('api_key').'&language=fr-FR&page='.$request->query->get('page-meilleurs-notes').'&region=FR');
-
+        
         return $this->render('AppBundle:Default:index.html.twig', array(
             'nowPlayingMoviesSlider' => $nowPlayingMoviesSlider,
             'nowPlayingMovies' => $nowPlayingMovies,
@@ -80,7 +81,7 @@ class MovieController extends Controller
         $em = $this->getDoctrine()->getManager();
         $movieDetails = Unirest\Request::get('https://api.themoviedb.org/3/movie/'.$movie_id.'?api_key='.$this->getParameter('api_key').'&language=fr-FR&append_to_response=videos,credits,recommendations');
         $movieComments = $em->getRepository('AppBundle:Comment')->getMovieComments($movie_id);
-        
+
         return $this->render('AppBundle:Default:detail.html.twig', array(
             'movieDetails' => $movieDetails,
             'movieComments' => $movieComments

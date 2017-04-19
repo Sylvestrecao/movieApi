@@ -56,9 +56,9 @@ function addFavoriteMovie(movieId, movieTitle, posterPath){
         }
     });
 }
-function closeAddFavoriteMovieAlert(){
+function closeAlert(id){
     $(function(){
-        $("#addFavoriteMovieState").css("display", "none");
+        $("#" + id).css("display", "none");
     })
 }
 
@@ -71,8 +71,18 @@ function addLikeOnComment(commentId){
         data: comment_id,
         url: path,
         success: function(data){
-            if(data){
-               $("#likeComment" + commentId).text(data)
+            if(data["class"] == "success"){
+                $("#likeMovieState").removeClass("alert-warning");
+                $("#likeMovieState").addClass("alert-" + data["class"]);
+                $("#likeMovieState").find("span").text(data["message"]);
+                $("#likeMovieState").fadeIn();
+                $("#likeComment" + commentId).text(data["likeNumber"])
+            }
+            else{
+                $("#likeMovieState").removeClass("alert-success");
+                $("#likeMovieState").addClass("alert-" + data["class"]);
+                $("#likeMovieState").find("span").text(data["message"]);
+                $("#likeMovieState").fadeIn();
             }
         },
         error: function(xhr, status, error) {
@@ -90,8 +100,18 @@ function addDislikeOnComment(commentId){
         data: comment_id,
         url: path,
         success: function(data){
-            if(data){
-                $("#dislikeComment" + commentId).text(data)
+            if(data["class"] == "success"){
+                $("#likeMovieState").removeClass("alert-warning");
+                $("#likeMovieState").addClass("alert-" + data["class"]);
+                $("#likeMovieState").find("span").text(data["message"]);
+                $("#likeMovieState").fadeIn();
+                $("#dislikeComment" + commentId).text(data["dislikeNumber"])
+            }
+            else{
+                $("#likeMovieState").removeClass("alert-success");
+                $("#likeMovieState").addClass("alert-" + data["class"]);
+                $("#likeMovieState").find("span").text(data["message"]);
+                $("#likeMovieState").fadeIn();
             }
         },
         error: function(xhr, status, error) {

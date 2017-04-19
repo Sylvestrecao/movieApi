@@ -146,6 +146,10 @@
                     {{ message }}
                 </div>
             {% endfor %}
+            <div class="alert alert-dismissible display-none" id="likeMovieState">
+                <button type="button" class="close" onclick="closeAlert('likeMovieState')">&times;</button>
+                <span></span>
+            </div>
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 <div class="col-md-12">
                     {% if movieComments is empty %}
@@ -195,13 +199,13 @@
                             <div class="post-description">
                                 <p>{{ comment.content }}</p>
                                 <div class="stats">
-                                    <a href="#" class="btn btn-default stat-item remove-event" title="j'aime ce commentaire" onclick="addLikeOnComment({{ comment.id }})">
-                                        <i class="fa fa-thumbs-up icon"></i><span id="likeComment{{ comment.id }}">{{ comment.commentLike }}</span>
-                                    </a>
-                                    <a href="#" class="btn btn-default stat-item remove-event" title="je n'aime pas ce commentaire" onclick="addDislikeOnComment({{ comment.id }})">
-                                        <i class="fa fa-thumbs-down icon"></i><span id="dislikeComment{{ comment.id }}">{{ comment.commentDislike }}</span>
-                                    </a>
                                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                        <a href="#" class="btn btn-default stat-item remove-event" title="j'aime ce commentaire" onclick="addLikeOnComment({{ comment.id }})">
+                                            <i class="fa fa-thumbs-up icon"></i><span id="likeComment{{ comment.id }}">{{ comment.commentLike }}</span>
+                                        </a>
+                                        <a href="#" class="btn btn-default stat-item remove-event" title="je n'aime pas ce commentaire" onclick="addDislikeOnComment({{ comment.id }})">
+                                            <i class="fa fa-thumbs-down icon"></i><span id="dislikeComment{{ comment.id }}">{{ comment.commentDislike }}</span>
+                                        </a>
                                         <a href="#replyTo{{ comment.id }}" data-toggle="collapse" class="btn btn-default stat-item" title="répondre à ce commentaire">
                                             <i class="fa fa-reply icon"></i>
                                         </a>
@@ -210,6 +214,12 @@
                                             {{ render(controller('AppBundle:User:addCommentResponse', {movie_id: comment.getMovieId(), comment_parent_id: comment.id})) }}
                                         </div>
                                     {% else %}
+                                        <a href="#" data-toggle="modal" data-target="#loginModal" class="btn btn-default stat-item remove-event" title="j'aime ce commentaire">
+                                            <i class="fa fa-thumbs-up icon"></i><span id="likeComment{{ comment.id }}">{{ comment.commentLike }}</span>
+                                        </a>
+                                        <a href="#" data-toggle="modal" data-target="#loginModal" class="btn btn-default stat-item remove-event" title="je n'aime pas ce commentaire">
+                                            <i class="fa fa-thumbs-down icon"></i><span id="dislikeComment{{ comment.id }}">{{ comment.commentDislike }}</span>
+                                        </a>
                                         <a href="#" data-toggle="modal" data-target="#loginModal" class="btn btn-default stat-item" title="répondre à ce commentaire">
                                             <i class="fa fa-reply icon"></i>
                                         </a>

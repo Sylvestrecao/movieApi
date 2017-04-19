@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Cookie;
 class UserController extends Controller
 {
     /**
@@ -127,18 +128,47 @@ class UserController extends Controller
         if($request->isXmlHttpRequest()){
             $data = $request->request->all();
             $id = $data['Comment_Id'];
+            $em = $this->getDoctrine()->getManager();
+            $comment = $em->getRepository('AppBundle:Comment')->find($id);
+            $likeNumber = $comment->getCommentLike();
+            $username = $comment->getUser()->getUsername();
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $comment = $em->getRepository('AppBundle:Comment')->find($id);
-        $likeNumber = $comment->getCommentLike();
-        $newLikeNumber = $likeNumber + 1;
-        $comment->setCommentLike($newLikeNumber);
+        $getCookies = $request->cookies->get('intothemovieCookie');
+        if(isset($getCookies)){
+            $getCookiesArray = json_decode($getCookies, true);
+            if(array_key_exists("comment".$id, $getCookiesArray)){
+               return new JsonResponse(array('message' => 'Vous ne pouvez pas like ou dislike un même commentaire', 'likeNumber' => $likeNumber, 'class' => 'warning'));
+            }
+            else{
+                $newLikeNumber = $likeNumber + 1;
+                $comment->setCommentLike($newLikeNumber);
+                $em->persist($comment);
+                $em->flush();
 
-        $em->persist($comment);
-        $em->flush();
+                $getCookiesArray["comment".$id] = 1;
+                $cookieJson = json_encode($getCookiesArray);
+                $cookie = new Cookie('intothemovieCookie', $cookieJson, strtotime("+1 year"));
+                $response = new Response();
+                $response->headers->setCookie($cookie);
+                $response->send();
+                return new JsonResponse(array('message' => 'Vous venez de like le commentaire de : '. $username, 'likeNumber' => $newLikeNumber, 'class' => 'success'));
+            }
+        }
+        else{
+            $newLikeNumber = $likeNumber + 1;
+            $comment->setCommentLike($newLikeNumber);
+            $em->persist($comment);
+            $em->flush();
 
-        return new Response($newLikeNumber);
+            $setCookieArray = array("comment".$id => 1);
+            $cookieJson = json_encode($setCookieArray);
+            $cookie = new Cookie('intothemovieCookie', $cookieJson, strtotime("+1 year"));
+            $response = new Response();
+            $response->headers->setCookie($cookie);
+            $response->send();
+            return new JsonResponse(array('message' => 'Vous venez de like le commentaire de : '. $username, 'likeNumber' => $newLikeNumber, 'class' => 'success'));
+        }
     }
 
     /**
@@ -150,17 +180,46 @@ class UserController extends Controller
         if($request->isXmlHttpRequest()){
             $data = $request->request->all();
             $id = $data['Comment_Id'];
+            $em = $this->getDoctrine()->getManager();
+            $comment = $em->getRepository('AppBundle:Comment')->find($id);
+            $dislikeNumber = $comment->getCommentDislike();
+            $username = $comment->getUser()->getUsername();
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $comment = $em->getRepository('AppBundle:Comment')->find($id);
-        $dislikeNumber = $comment->getCommentDislike();
-        $newDislikeNumber = $dislikeNumber + 1;
-        $comment->setCommentDislike($newDislikeNumber);
+        $getCookies = $request->cookies->get('intothemovieCookie');
+        if(isset($getCookies)){
+            $getCookiesArray = json_decode($getCookies, true);
+            if(array_key_exists("comment".$id, $getCookiesArray)){
+                return new JsonResponse(array('message' => 'Vous ne pouvez pas like ou dislike un même commentaire', 'dislikeNumber' => $dislikeNumber, 'class' => 'warning'));
+            }
+            else{
+                $newDislikeNumber = $dislikeNumber + 1;
+                $comment->setCommentDislike($newDislikeNumber);
+                $em->persist($comment);
+                $em->flush();
 
-        $em->persist($comment);
-        $em->flush();
+                $getCookiesArray["comment".$id] = 1;
+                $cookieJson = json_encode($getCookiesArray);
+                $cookie = new Cookie('intothemovieCookie', $cookieJson, strtotime("+1 year"));
+                $response = new Response();
+                $response->headers->setCookie($cookie);
+                $response->send();
+                return new JsonResponse(array('message' => 'Vous venez de dislike le commentaire de : '. $username, 'dislikeNumber' => $newDislikeNumber, 'class' => 'success'));
+            }
+        }
+        else{
+            $newDislikeNumber = $dislikeNumber + 1;
+            $comment->setCommentDislike($newDislikeNumber);
+            $em->persist($comment);
+            $em->flush();
 
-        return new Response($newDislikeNumber);
+            $setCookieArray = array("comment".$id => 1);
+            $cookieJson = json_encode($setCookieArray);
+            $cookie = new Cookie('intothemovieCookie', $cookieJson, strtotime("+1 year"));
+            $response = new Response();
+            $response->headers->setCookie($cookie);
+            $response->send();
+            return new JsonResponse(array('message' => 'Vous venez de dislike le commentaire de : '. $username, 'dislikeNumber' => $newDislikeNumber, 'class' => 'success'));
+        }
     }
 }
