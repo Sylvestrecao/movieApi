@@ -43,12 +43,14 @@ function addFavoriteMovie(movieId, movieTitle, posterPath){
         url: path,
         success: function(data){
             if(data){
+                $("#addFavoriteMovieState").removeClass("alert-warning");
                 $("#addFavoriteMovieState").addClass("alert-success");
                 $("#addFavoriteMovieState").find("span").text("Le film a été ajouté à vos favoris !");
                 $("#addFavoriteMovieState").fadeIn();
             }
         },
         error: function(xhr, status, error) {
+            $("#addFavoriteMovieState").removeClass("alert-success");
             $("#addFavoriteMovieState").addClass("alert-warning");
             $("#addFavoriteMovieState").find("span").text("Le film est déjà dans votre liste de favoris.");
             $("#addFavoriteMovieState").fadeIn();

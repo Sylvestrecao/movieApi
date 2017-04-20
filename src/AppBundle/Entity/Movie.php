@@ -42,11 +42,10 @@ class Movie
      */
     private $posterPath;
 
-
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="MovieUser", mappedBy="movie", cascade={"persist"})
      */
-    private $users;
+    private $movieUsers;
 
     /**
      * Get id
@@ -105,48 +104,7 @@ class Movie
     {
         return $this->posterPath;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add user
-     *
-     * @param \AppBundle\Entity\User $user
-     *
-     * @return Movie
-     */
-    public function addUser(\AppBundle\Entity\User $user)
-    {
-        $this->users[] = $user;
-
-        return $this;
-    }
-
-    /**
-     * Remove user
-     *
-     * @param \AppBundle\Entity\User $user
-     */
-    public function removeUser(\AppBundle\Entity\User $user)
-    {
-        $this->users->removeElement($user);
-    }
-
-    /**
-     * Get users
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getUsers()
-    {
-        return $this->users;
-    }
-
+    
     /**
      * Set movieDbId
      *
@@ -169,5 +127,46 @@ class Movie
     public function getMovieDbId()
     {
         return $this->movieDbId;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->movieUsers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add movieUser
+     *
+     * @param \AppBundle\Entity\MovieUser $movieUser
+     *
+     * @return Movie
+     */
+    public function addMovieUser(\AppBundle\Entity\MovieUser $movieUser)
+    {
+        $this->movieUsers[] = $movieUser;
+        $movieUser->setMovie($this);
+        return $this;
+    }
+
+    /**
+     * Remove movieUser
+     *
+     * @param \AppBundle\Entity\MovieUser $movieUser
+     */
+    public function removeMovieUser(\AppBundle\Entity\MovieUser $movieUser)
+    {
+        $this->movieUsers->removeElement($movieUser);
+    }
+
+    /**
+     * Get movieUsers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMovieUsers()
+    {
+        return $this->movieUsers;
     }
 }

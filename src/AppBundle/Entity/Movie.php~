@@ -42,11 +42,10 @@ class Movie
      */
     private $posterPath;
 
-
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="MovieUser", mappedBy="movie", cascade={"persist"})
      */
-    private $users;
+    private $movieUsers;
 
     /**
      * Get id
@@ -105,45 +104,28 @@ class Movie
     {
         return $this->posterPath;
     }
+    
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add user
+     * Set movieDbId
      *
-     * @param \AppBundle\Entity\User $user
+     * @param integer $movieDbId
      *
      * @return Movie
      */
-    public function addUser(\AppBundle\Entity\User $user)
+    public function setMovieDbId($movieDbId)
     {
-        $this->users[] = $user;
+        $this->movieDbId = $movieDbId;
 
         return $this;
     }
 
     /**
-     * Remove user
+     * Get movieDbId
      *
-     * @param \AppBundle\Entity\User $user
+     * @return integer
      */
-    public function removeUser(\AppBundle\Entity\User $user)
+    public function getMovieDbId()
     {
-        $this->users->removeElement($user);
-    }
-
-    /**
-     * Get users
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getUsers()
-    {
-        return $this->users;
+        return $this->movieDbId;
     }
 }

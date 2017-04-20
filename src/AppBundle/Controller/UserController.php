@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comment;
+use AppBundle\Entity\MovieUser;
 use AppBundle\Form\CommentType;
 use AppBundle\Entity\Movie;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -98,27 +99,34 @@ class UserController extends Controller
             $data = $request->request->all();
             $movieInDatabase = $em->getRepository('AppBundle:Movie')->findMovieInDatabase($data['Movie_Id']);
             $user = $this->getUser();
-            // If movie is in database, only add new user to this movie
+            // If movie is in database, only add new movieUser
             if(!empty($movieInDatabase)){
-                // get the movie as an object
-                $movieDb = $movieInDatabase[0];
-                $movieDb->addUser($user);
-                $em->persist($movieDb);
+                $movieUser = new MovieUser();
+                $movieUser->setFavoriteMovie(true);
+                $movieUser->setUser($user);
+                //$movieUser->setMovie($movieInDatabase);
+
+                $movieInDatabase->addMovieUser($movieUser);
+                $em->persist($movieUser);
             }
             else{
                 $movie = new Movie();
                 $movie->setMovieDbId($data['Movie_Id']);
                 $movie->setTitle($data['Movie_Title']);
                 $movie->setPosterPath($data['Poster_Path']);
-                $movie->addUser($user);
-                $em->persist($movie);
+
+                $movieUser = new MovieUser();
+                $movieUser->setFavoriteMovie(true);
+                $movieUser->setUser($user);
+                $movieUser->setMovie($movie);
+
+                $em->persist($movieUser);
             }
             $em->flush();
         }
 
         return new JsonResponse($data);
     }
-
     /**
      * @Route("/add/like-comment", options={"expose"=true}, name="add_like_comment")
      * @Method("POST")

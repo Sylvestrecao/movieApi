@@ -13,8 +13,10 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
     public function getUserFavoriteMovies($id)
     {
         return $this->createQueryBuilder('m')
-            ->innerJoin('m.users', 'u')
-            ->where('u.id = :id')
+            ->leftJoin('m.movieUsers', 'mu')
+            ->addSelect('mu')
+            ->where('mu.user = :id')
+            ->andWhere('mu.favoriteMovie = true')
             ->setParameter('id', $id)
             ->getQuery()
             ->getResult()
@@ -27,7 +29,7 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
             ->where('m.movieDbId = :id')
             ->setParameter('id', $id)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
             ;
     }
 }
