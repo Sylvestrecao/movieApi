@@ -95,19 +95,23 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         if($request->isXmlHttpRequest()){
-
+            $user = $this->getUser();
             $data = $request->request->all();
             $movieInDatabase = $em->getRepository('AppBundle:Movie')->findMovieInDatabase($data['Movie_Id']);
-            $user = $this->getUser();
-            // If movie is in database, only add new movieUser
-            if(!empty($movieInDatabase)){
+            if(isset($movieInDatabase)){
+                $movieUserInDatabase = $em->getRepository('AppBundle:MovieUser')->findMovieUserInDatabase($user->getId(), $movieInDatabase->getId());
+            }
+            // If movie is in database and movieUser does not exist, only add new movieUser
+            if(isset($movieInDatabase) && empty($movieUserInDatabase)){
                 $movieUser = new MovieUser();
                 $movieUser->setFavoriteMovie(true);
                 $movieUser->setUser($user);
-                //$movieUser->setMovie($movieInDatabase);
+                $movieUser->setMovie($movieInDatabase);
 
-                $movieInDatabase->addMovieUser($movieUser);
                 $em->persist($movieUser);
+            }
+            elseif(isset($movieInDatabase) && isset($movieUserInDatabase)){
+                return new JsonResponse(array("state" => "error"));
             }
             else{
                 $movie = new Movie();
@@ -125,7 +129,7 @@ class UserController extends Controller
             $em->flush();
         }
 
-        return new JsonResponse($data);
+        return new JsonResponse(array("state" => "success"));
     }
     /**
      * @Route("/add/like-comment", options={"expose"=true}, name="add_like_comment")
