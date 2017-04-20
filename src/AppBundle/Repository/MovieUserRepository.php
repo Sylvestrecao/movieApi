@@ -18,7 +18,7 @@ class MovieUserRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere('m.user = :user_id')
             ->setParameter('user_id', $user_id)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
             ;
     }
 }

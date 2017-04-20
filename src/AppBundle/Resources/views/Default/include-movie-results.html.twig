@@ -11,7 +11,10 @@
                 <p>{% if movie.overview is defined %}{{ movie.overview | truncate(30) }}{% endif %}</p>
                 <a href="{{ path('movie_details', {movie_id: movie.id}) }}" class="btn btn-default">Plus d'information</a>
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <a class="remove-event" href="#" onclick="addFavoriteMovie({{ movie.id }}, '{{ movie.title }}', '{{ movie.poster_path }}')">Ajouter aux favoris</a>
+                    <p class="text-right position-absolute b-1pc r-10pc">
+                        <a class="remove-event glyphicon glyphicon-heart font-size-20 mg-r-3" href="#" title="Ajouter aux favoris" style="text-decoration: none;" onclick="addFavoriteMovie({{ movie.id }}, '{{ movie.title }}', '{{ movie.poster_path }}')"></a>
+                        <a class="remove-event glyphicon glyphicon-eye-open font-size-20 mg-r-3" href="#" title="Ajouter dans ma playlist 'films à voir'" style="text-decoration: none;" onclick="addMovieToWatch({{ movie.id }}, '{{ movie.title }}', '{{ movie.poster_path }}')"></a>
+                    </p>
                 {% endif %}
             </div>
         </div>

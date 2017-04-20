@@ -23,6 +23,19 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
             ;
     }
 
+    public function getUserMoviesToWatch($id)
+    {
+        return $this->createQueryBuilder('m')
+            ->leftJoin('m.movieUsers', 'mu')
+            ->addSelect('mu')
+            ->where('mu.user = :id')
+            ->andWhere('mu.movieToWatch = true')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     public function findMovieInDatabase($id)
     {
         return $this->createQueryBuilder('m')

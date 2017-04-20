@@ -100,6 +100,8 @@ class UserController extends Controller
             $movieInDatabase = $em->getRepository('AppBundle:Movie')->findMovieInDatabase($data['Movie_Id']);
             if(isset($movieInDatabase)){
                 $movieUserInDatabase = $em->getRepository('AppBundle:MovieUser')->findMovieUserInDatabase($user->getId(), $movieInDatabase->getId());
+                if(isset($movieUserInDatabase))
+                    $favoriteMovie = $movieUserInDatabase->getFavoriteMovie();
             }
             // If movie is in database and movieUser does not exist, only add new movieUser
             if(isset($movieInDatabase) && empty($movieUserInDatabase)){
@@ -110,8 +112,11 @@ class UserController extends Controller
 
                 $em->persist($movieUser);
             }
-            elseif(isset($movieInDatabase) && isset($movieUserInDatabase)){
+            elseif(isset($movieInDatabase) && isset($favoriteMovie)){
                 return new JsonResponse(array("state" => "error"));
+            }
+            elseif(isset($movieInDatabase) && $favoriteMovie == null){
+                $movieUserInDatabase->setFavoriteMovie(true);
             }
             else{
                 $movie = new Movie();
@@ -121,6 +126,58 @@ class UserController extends Controller
 
                 $movieUser = new MovieUser();
                 $movieUser->setFavoriteMovie(true);
+                $movieUser->setUser($user);
+                $movieUser->setMovie($movie);
+
+                $em->persist($movieUser);
+            }
+            $em->flush();
+        }
+
+        return new JsonResponse(array("state" => "success"));
+    }
+
+    /**
+     * Add favorite movie
+     *
+     * @Route("/add/movie-to-watch", options={"expose"=true}, name="user_add_movie_to_watch")
+     * @Method("POST")
+     */
+    public function addMovieToWatchAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if($request->isXmlHttpRequest()){
+            $user = $this->getUser();
+            $data = $request->request->all();
+            $movieInDatabase = $em->getRepository('AppBundle:Movie')->findMovieInDatabase($data['Movie_Id']);
+            if(isset($movieInDatabase)){
+                $movieUserInDatabase = $em->getRepository('AppBundle:MovieUser')->findMovieUserInDatabase($user->getId(), $movieInDatabase->getId());
+                if(isset($movieUserInDatabase))
+                    $movieToWatch = $movieUserInDatabase->getMovieToWatch();
+            }
+            // If movie is in database and movieUser does not exist, only add new movieUser
+            if(isset($movieInDatabase) && empty($movieUserInDatabase)){
+                $movieUser = new MovieUser();
+                $movieUser->setMovieToWatch(true);
+                $movieUser->setUser($user);
+                $movieUser->setMovie($movieInDatabase);
+
+                $em->persist($movieUser);
+            }
+            elseif(isset($movieInDatabase) && isset($movieToWatch)){
+                return new JsonResponse(array("state" => "error"));
+            }
+            elseif(isset($movieInDatabase) && $movieToWatch == null){
+                $movieUserInDatabase->setMovieToWatch(true);
+            }
+            else{
+                $movie = new Movie();
+                $movie->setMovieDbId($data['Movie_Id']);
+                $movie->setTitle($data['Movie_Title']);
+                $movie->setPosterPath($data['Poster_Path']);
+
+                $movieUser = new MovieUser();
+                $movieUser->setMovieToWatch(true);
                 $movieUser->setUser($user);
                 $movieUser->setMovie($movie);
 

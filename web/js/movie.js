@@ -43,18 +43,47 @@ function addFavoriteMovie(movieId, movieTitle, posterPath){
         url: path,
         success: function(data){
             if(data["state"] == "success"){
-                $("#addFavoriteMovieState").removeClass("alert-warning");
-                $("#addFavoriteMovieState").addClass("alert-success");
-                $("#addFavoriteMovieState").find("span").text("Le film a été ajouté à vos favoris !");
-                $("#addFavoriteMovieState").fadeIn();
+                $("#addMovieToProfile").removeClass("alert-warning");
+                $("#addMovieToProfile").addClass("alert-success");
+                $("#addMovieToProfile").find("span").text("Le film a été ajouté à vos favoris !");
+                $("#addMovieToProfile").fadeIn();
             }
             else{
-                $("#addFavoriteMovieState").removeClass("alert-success");
-                $("#addFavoriteMovieState").addClass("alert-warning");
-                $("#addFavoriteMovieState").find("span").text("Le film est déjà dans votre liste de favoris.");
-                $("#addFavoriteMovieState").fadeIn();
+                $("#addMovieToProfile").removeClass("alert-success");
+                $("#addMovieToProfile").addClass("alert-warning");
+                $("#addMovieToProfile").find("span").text("Le film est déjà dans votre liste de favoris.");
+                $("#addMovieToProfile").fadeIn();
             }
             
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
+
+function addMovieToWatch(movieId, movieTitle, posterPath){
+    var path = Routing.generate('user_add_movie_to_watch');
+    var movieData = {"Movie_Id": movieId, "Movie_Title": movieTitle, "Poster_Path": posterPath};
+
+    $.ajax({
+        type: "POST",
+        data: movieData,
+        url: path,
+        success: function(data){
+            if(data["state"] == "success"){
+                $("#addMovieToProfile").removeClass("alert-warning");
+                $("#addMovieToProfile").addClass("alert-success");
+                $("#addMovieToProfile").find("span").text("Le film a été ajouté dans votre playlist des films à voir !");
+                $("#addMovieToProfile").fadeIn();
+            }
+            else{
+                $("#addMovieToProfile").removeClass("alert-success");
+                $("#addMovieToProfile").addClass("alert-warning");
+                $("#addMovieToProfile").find("span").text("Le film est déjà dans votre playlist des films à voir.");
+                $("#addMovieToProfile").fadeIn();
+            }
+
         },
         error: function(xhr, status, error) {
             console.log(error);

@@ -29,10 +29,12 @@ class ProfileController extends BaseController
         $user_id = $this->getUser()->getId();
         $em = $this->getDoctrine()->getManager();
         $favoriteMovies = $em->getRepository('AppBundle:Movie')->getUserFavoriteMovies($user_id);
+        $moviesToWatch = $em->getRepository('AppBundle:Movie')->getUserMoviesToWatch($user_id);
 
         return $this->render('@FOSUser/Profile/show.html.twig', array(
             'user' => $user,
-            'favoriteMovies' => $favoriteMovies
+            'favoriteMovies' => $favoriteMovies,
+            'moviesToWatch' => $moviesToWatch
         ));
     }
 

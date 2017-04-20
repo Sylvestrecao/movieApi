@@ -44,6 +44,7 @@ header.carousel .fill {
 .nav-pills > li + li{
     margin-left: 0px;
 }
+/* */
 .pd-0{
     padding: 0;
 }
@@ -62,6 +63,12 @@ header.carousel .fill {
 .mg-r-3{
     margin-right: 3px;
 }
+.b-1pc{
+    bottom: 1%;
+}
+.r-10pc{
+    right: 10%;
+}
 .heigth-800{
     height: 800px;
 }
@@ -77,15 +84,26 @@ header.carousel .fill {
 .font-size-25{
     font-size: 25px;
 }
+.font-size-20{
+    font-size: 20px;
+}
 .font-size-18{
     font-size: 18px;
 }
 .display-none{
     display: none;
 }
+.position-absolute{
+    position: absolute;
+}
+
 .clear-both{
     clear: both;
 }
+.hover-decoration-none{
+    text-decoration: none;
+}
+
 /* center modal */
 .modal {
     text-align: center;
