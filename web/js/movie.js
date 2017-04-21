@@ -54,14 +54,30 @@ function addFavoriteMovie(movieId, movieTitle, posterPath){
                 $("#addMovieToProfile").find("span").text("Le film est déjà dans votre liste de favoris.");
                 $("#addMovieToProfile").fadeIn();
             }
-            
         },
         error: function(xhr, status, error) {
             console.log(error);
         }
     });
 }
+function removeFavoriteMovie(movieId){
+    var path = Routing.generate('user_remove_favorite_movie');
+    var movieData = {"Movie_Id": movieId};
 
+    $.ajax({
+        type: "POST",
+        data: movieData,
+        url: path,
+        success: function(data){
+            if(data){
+                $("#favoriteMovie" + movieId).remove();
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
 function addMovieToWatch(movieId, movieTitle, posterPath){
     var path = Routing.generate('user_add_movie_to_watch');
     var movieData = {"Movie_Id": movieId, "Movie_Title": movieTitle, "Poster_Path": posterPath};
@@ -83,7 +99,24 @@ function addMovieToWatch(movieId, movieTitle, posterPath){
                 $("#addMovieToProfile").find("span").text("Le film est déjà dans votre playlist des films à voir.");
                 $("#addMovieToProfile").fadeIn();
             }
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
+function removeMovieToWatch(movieId){
+    var path = Routing.generate('user_remove_movie_to_watch');
+    var movieData = {"Movie_Id": movieId};
 
+    $.ajax({
+        type: "POST",
+        data: movieData,
+        url: path,
+        success: function(data){
+            if(data){
+                $("#movieToWatch" + movieId).remove();
+            }
         },
         error: function(xhr, status, error) {
             console.log(error);

@@ -9,7 +9,7 @@
                     <!-- http://lorempixel.com/850/280/people/9/ -->
                 </div>
                 <div class="useravatar">
-                    <img alt="image profile" src="https://www.gravatar.com/avatar/6a6c19fea4a3676970167ce51f39e6ee?d=mm&s=100%22">
+                    <img alt="image profile" src="https://lorempixel.com/100/100/people/2/">
                 </div>
                 <div class="card-info"> <span class="card-title">{{ app.user.username }}</span></div>
             </div>
@@ -35,8 +35,8 @@
                 <div class="tab-content">
                     <div class="tab-pane fade in" id="tab1">
                         {% for movie in favoriteMovies %}
-                            <div class="col-md-4 text-center">
-                                <div class="panel panel-default heigth-800">
+                            <div class="col-md-4 text-center" id="favoriteMovie{{ movie.id }}">
+                                <div class="panel panel-default heigth-700">
                                     <div class="panel-heading">
                                         <h4>{% if movie.title is defined %}{{ movie.title }}{% endif %}</h4>
                                     </div>
@@ -44,6 +44,9 @@
                                         <img class="img-responsive center-block" src="https://image.tmdb.org/t/p/w342{{ movie.posterPath }}" alt="{% if movie.title is defined %}{{ movie.title }}{% endif %}"/>
                                         <hr>
                                         <a href="{{ path('movie_details', {movie_id: movie.movieDbId}) }}" class="btn btn-default">Plus d'information</a>
+                                        <p class="text-right position-absolute t-1pc r-10pc">
+                                            <a class="remove-event glyphicon glyphicon-remove font-size-20 mg-r-3" href="#" title="Retirer des favoris" style="text-decoration: none;" onclick="removeFavoriteMovie({{ movie.id }})"></a>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -51,8 +54,8 @@
                     </div>
                     <div class="tab-pane fade in active" id="tab2">
                         {% for movie in moviesToWatch %}
-                            <div class="col-md-4 text-center">
-                                <div class="panel panel-default heigth-800">
+                            <div class="col-md-4 text-center" id="movieToWatch{{ movie.id }}">
+                                <div class="panel panel-default heigth-700">
                                     <div class="panel-heading">
                                         <h4>{% if movie.title is defined %}{{ movie.title }}{% endif %}</h4>
                                     </div>
@@ -60,6 +63,9 @@
                                         <img class="img-responsive center-block" src="https://image.tmdb.org/t/p/w342{{ movie.posterPath }}" alt="{% if movie.title is defined %}{{ movie.title }}{% endif %}"/>
                                         <hr>
                                         <a href="{{ path('movie_details', {movie_id: movie.movieDbId}) }}" class="btn btn-default">Plus d'information</a>
+                                        <p class="text-right position-absolute t-1pc r-10pc">
+                                            <a class="remove-event glyphicon glyphicon-remove font-size-20 mg-r-3" href="#" title="Retirer de la playlist" style="text-decoration: none;" onclick="removeMovieToWatch({{ movie.id }})"></a>
+                                        </p>
                                     </div>
                                 </div>
                             </div>

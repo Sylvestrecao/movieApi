@@ -45,7 +45,8 @@ header.carousel .fill {
     margin-left: 0px;
 }
 
-/* Responsive navbar-brand image CSS*/
+/* responsive Responsive navbar-brand image CSS*/
+
 .navbar-brand>img {
     height: 100%;
     width: auto;
@@ -71,11 +72,17 @@ header.carousel .fill {
 .b-1pc{
     bottom: 1%;
 }
+.t-1pc{
+    top: 1%;
+}
 .r-10pc{
     right: 10%;
 }
 .heigth-800{
     height: 800px;
+}
+.heigth-700{
+    height: 700px;
 }
 .heigth-415{
     height: 415px;

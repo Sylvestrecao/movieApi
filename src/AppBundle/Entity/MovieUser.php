@@ -28,7 +28,7 @@ class MovieUser
     private $favoriteMovie;
 
     /**
-     * @var int
+     * @var bool
      *
      * @ORM\Column(name="movieToWatch", type="boolean", nullable=true)
      */

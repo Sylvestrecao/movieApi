@@ -138,7 +138,27 @@ class UserController extends Controller
     }
 
     /**
-     * Add favorite movie
+     * Remove favorite movie
+     *
+     * @Route("/remove/favorite-movie", options={"expose"=true}, name="user_remove_favorite_movie")
+     * @Method("POST")
+     */
+    public function removeFavoriteMovieAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        if($request->isXmlHttpRequest()){
+            $user = $this->getUser();
+            $data = $request->request->all();
+            $movieUserInDatabase = $em->getRepository('AppBundle:MovieUser')->findMovieUserInDatabase($user->getId(), $data['Movie_Id']);
+            $movieUserInDatabase->setFavoriteMovie(false);
+
+            $em->persist($movieUserInDatabase);
+            $em->flush();
+        }
+
+        return new Response("success");
+    }
+    /**
+     * Add movie to watch
      *
      * @Route("/add/movie-to-watch", options={"expose"=true}, name="user_add_movie_to_watch")
      * @Method("POST")
@@ -187,6 +207,27 @@ class UserController extends Controller
         }
 
         return new JsonResponse(array("state" => "success"));
+    }
+
+    /**
+     * Remove movie to watch
+     *
+     * @Route("/remove/movie-to-watch", options={"expose"=true}, name="user_remove_movie_to_watch")
+     * @Method("POST")
+     */
+    public function removeMovieToWatchAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        if($request->isXmlHttpRequest()){
+            $user = $this->getUser();
+            $data = $request->request->all();
+            $movieUserInDatabase = $em->getRepository('AppBundle:MovieUser')->findMovieUserInDatabase($user->getId(), $data['Movie_Id']);
+            $movieUserInDatabase->setMovieToWatch(false);
+
+            $em->persist($movieUserInDatabase);
+            $em->flush();
+        }
+
+        return new Response("success");
     }
     /**
      * @Route("/add/like-comment", options={"expose"=true}, name="add_like_comment")
