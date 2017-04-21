@@ -145,13 +145,19 @@ class MovieController extends Controller
      * @Route("/company/{company_id}/{company_name}/movies", name="company_movies", requirements={"company_id": "\d+", "company_name"=".+"})
      * @Method("GET")
      */
-    public function companyMoviesAction($company_id, $company_name)
+    public function companyMoviesAction(Request $request, $company_id, $company_name)
     {
-        $companyMovies = Unirest\Request::get('https://api.themoviedb.org/3/company/'.$company_id.'/movies?api_key='.$this->getParameter('api_key').'&language=fr-FR');
+        if($request->query->get('page-company') == null){
+            $companyMovies = Unirest\Request::get('https://api.themoviedb.org/3/company/'.$company_id.'/movies?api_key='.$this->getParameter('api_key').'&language=fr-FR&page=1');
+        }
+        else{
+            $companyMovies = Unirest\Request::get('https://api.themoviedb.org/3/company/'.$company_id.'/movies?api_key='.$this->getParameter('api_key').'&language=fr-FR&page='.$request->query->get('page-company'));
+        }
 
         return $this->render('AppBundle:Default:company-movies.html.twig', array(
             'companyMovies' => $companyMovies,
-            'companyName'  => $company_name
+            'companyName'  => $company_name,
+            'companyId' => $company_id
         ));
     }
 

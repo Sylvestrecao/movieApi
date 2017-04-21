@@ -18,6 +18,7 @@
         <!-- /.row -->
         <div class="row mg-t-50">
             {{ render(controller('AppBundle:Movie:includeMovieResults', {listMovies: companyMovies})) }}
+            {{ render(controller('AppBundle:Movie:includePagination', {listMovies: companyMovies, previousFormId: 'previousPageCompany', nextFormId: 'nextPageCompany', inputName: 'page-company', action: path('company_movies', {company_id: companyId, company_name: companyName})})) }}
         </div>
     </div>
 
