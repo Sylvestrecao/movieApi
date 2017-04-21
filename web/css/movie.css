@@ -44,7 +44,12 @@ header.carousel .fill {
 .nav-pills > li + li{
     margin-left: 0px;
 }
-/* */
+
+/* Responsive navbar-brand image CSS*/
+.navbar-brand>img {
+    height: 100%;
+    width: auto;
+}
 .pd-0{
     padding: 0;
 }
