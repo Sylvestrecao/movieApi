@@ -15,21 +15,6 @@
                         <p class="text-right position-absolute b-1pc r-10pc">
                             <a class="remove-event glyphicon glyphicon-heart font-size-20 mg-r-3" href="#" title="Ajouter aux favoris" style="text-decoration: none;" onclick="addFavoriteMovie({{ movie.id }}, '{{ movie.title }}', '{{ movie.poster_path }}')"></a>
                             <a class="remove-event glyphicon glyphicon-eye-open font-size-20 mg-r-3" href="#" title="Ajouter dans ma playlist 'films à voir'" style="text-decoration: none;" onclick="addMovieToWatch({{ movie.id }}, '{{ movie.title }}', '{{ movie.poster_path }}')"></a>
-                            <a class="remove-event glyphicon glyphicon-star font-size-20 mg-r-3" href="#" data-toggle="modal" data-target="#rateMovieModal" title="Noter ce film" style="text-decoration: none;"></a>
-                            <div class="modal fade" id="rateMovieModal" role="dialog">
-                                <div class="modal-dialog">
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title text-center">Noter ce film</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            Stars
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </p>
                     {% endif %}
                 {% endif %}

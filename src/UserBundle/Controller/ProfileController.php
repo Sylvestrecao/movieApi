@@ -43,7 +43,9 @@ class ProfileController extends BaseController
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(UserType::class, $user);
+
         if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
+            $user->getProfileImage()->upload();
             $em->persist($user);
             $em->flush();
 
@@ -53,7 +55,7 @@ class ProfileController extends BaseController
         }
 
         return $this->render('@FOSUser/Profile/edit_content.html.twig', array(
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ));
     }
 }

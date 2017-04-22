@@ -41,28 +41,4 @@ class User extends BaseUser
     }
 
     
-
-    /**
-     * Set profileImage
-     *
-     * @param \AppBundle\Entity\ProfileImage $profileImage
-     *
-     * @return User
-     */
-    public function setProfileImage(\AppBundle\Entity\ProfileImage $profileImage = null)
-    {
-        $this->profileImage = $profileImage;
-
-        return $this;
-    }
-
-    /**
-     * Get profileImage
-     *
-     * @return \AppBundle\Entity\ProfileImage
-     */
-    public function getProfileImage()
-    {
-        return $this->profileImage;
-    }
 }

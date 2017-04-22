@@ -115,7 +115,9 @@ header.carousel .fill {
 .hover-decoration-none{
     text-decoration: none;
 }
-
+.float-right{
+    float: right;
+}
 /* center modal */
 .modal {
     text-align: center;

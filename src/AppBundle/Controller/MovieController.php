@@ -23,7 +23,7 @@ class MovieController extends Controller
         $popularMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/popular?api_key='.$this->getParameter('api_key').'&language=fr-FR&page='.$request->query->get('page-populaire').'&region=FR');
         $upcomingMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/upcoming?api_key='.$this->getParameter('api_key').'&language=fr-FR&page='.$request->query->get('page-prochainement').'&region=FR');
         $topRatedMovies = Unirest\Request::get('https://api.themoviedb.org/3/movie/top_rated?api_key='.$this->getParameter('api_key').'&language=fr-FR&page='.$request->query->get('page-meilleurs-notes').'&region=FR');
-        
+
         return $this->render('AppBundle:Default:index.html.twig', array(
             'nowPlayingMoviesSlider' => $nowPlayingMoviesSlider,
             'nowPlayingMovies' => $nowPlayingMovies,
