@@ -9,7 +9,7 @@
                     <!-- http://lorempixel.com/850/280/people/9/ -->
                 </div>
                 <div class="useravatar">
-                    <img alt="image profile" src="https://lorempixel.com/100/100/people/2/">
+                    <img alt="image profile" src="{% if user.profileImage is not null %}{{ asset('uploads/img/' ~ user.profileImage.url) }}{% else %}https://www.gravatar.com/avatar/6a6c19fea4a3676970167ce51f39e6ee?d=mm&s=100{% endif %}">
                 </div>
                 <div class="card-info"> <span class="card-title">{{ app.user.username }}</span></div>
             </div>

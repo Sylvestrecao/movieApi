@@ -111,7 +111,7 @@ class ProfileImage
             return;
         }
         $name = $this->file->getClientOriginalName();
-        $this->file->move('C:\wamp64\www\movieApi\web\uploads\img', $name);
+        $this->file->move(__DIR__.'/../../../web/uploads/img', $name);
         $this->url = $name;
         $this->alt = $name;
     }
