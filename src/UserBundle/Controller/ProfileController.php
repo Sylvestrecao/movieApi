@@ -45,7 +45,12 @@ class ProfileController extends BaseController
         $form = $this->createForm(UserType::class, $user);
 
         if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
-            $user->getProfileImage()->upload();
+            $profileImage = $user->getProfileImage();
+            if($profileImage->getFile()){
+                $profileImage->removeProfileImage($profileImage);
+                $profileImage->upload();
+            }
+            
             $em->persist($user);
             $em->flush();
 

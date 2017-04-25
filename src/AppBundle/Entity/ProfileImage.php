@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * ProfileImage
  *
@@ -35,6 +36,9 @@ class ProfileImage
      */
     private $alt;
 
+    /**
+     * @Assert\Image()
+     */
     private $file;
 
     public function getFile()
@@ -110,9 +114,23 @@ class ProfileImage
         if (null === $this->file) {
             return;
         }
-        $name = $this->file->getClientOriginalName();
-        $this->file->move(__DIR__.'/../../../web/uploads/img', $name);
-        $this->url = $name;
-        $this->alt = $name;
+        $fileName = uniqid().'.'.$this->file->guessExtension();
+        $this->file->move(__DIR__.'/../../../web/uploads/img', $fileName);
+        $this->url = $fileName;
+        $this->alt = $this->file->getClientOriginalName();
     }
+
+    public function removeProfileImage($profileImage)
+    {
+        $oldFile = $profileImage->getUploadRootDir().'/'.$profileImage->getUrl();
+        if (file_exists($oldFile)) {
+            unlink($oldFile);
+        }
+    }
+    public function getUploadRootDir()
+    {
+        return __DIR__.'/../../../web/uploads/img';
+    }
+
+    
 }
