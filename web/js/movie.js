@@ -46,13 +46,13 @@ function addFavoriteMovie(movieId, movieTitle, posterPath){
                 $("#addMovieToProfile").removeClass("alert-warning");
                 $("#addMovieToProfile").addClass("alert-success");
                 $("#addMovieToProfile").find("span").text("Le film a été ajouté à vos favoris !");
-                $("#addMovieToProfile").fadeIn();
+                $("#addMovieToProfile").fadeIn("slow");
             }
             else{
                 $("#addMovieToProfile").removeClass("alert-success");
                 $("#addMovieToProfile").addClass("alert-warning");
                 $("#addMovieToProfile").find("span").text("Le film est déjà dans votre liste de favoris.");
-                $("#addMovieToProfile").fadeIn();
+                $("#addMovieToProfile").fadeIn("slow");
             }
         },
         error: function(xhr, status, error) {
@@ -91,13 +91,13 @@ function addMovieToWatch(movieId, movieTitle, posterPath){
                 $("#addMovieToProfile").removeClass("alert-warning");
                 $("#addMovieToProfile").addClass("alert-success");
                 $("#addMovieToProfile").find("span").text("Le film a été ajouté dans votre playlist des films à voir !");
-                $("#addMovieToProfile").fadeIn();
+                $("#addMovieToProfile").fadeIn("slow");
             }
             else{
                 $("#addMovieToProfile").removeClass("alert-success");
                 $("#addMovieToProfile").addClass("alert-warning");
                 $("#addMovieToProfile").find("span").text("Le film est déjà dans votre playlist des films à voir.");
-                $("#addMovieToProfile").fadeIn();
+                $("#addMovieToProfile").fadeIn("slow");
             }
         },
         error: function(xhr, status, error) {
@@ -142,14 +142,14 @@ function addLikeOnComment(commentId){
                 $("#likeMovieState").removeClass("alert-warning");
                 $("#likeMovieState").addClass("alert-" + data["class"]);
                 $("#likeMovieState").find("span").text(data["message"]);
-                $("#likeMovieState").fadeIn();
+                $("#likeMovieState").fadeIn("slow");
                 $("#likeComment" + commentId).text(data["likeNumber"])
             }
             else{
                 $("#likeMovieState").removeClass("alert-success");
                 $("#likeMovieState").addClass("alert-" + data["class"]);
                 $("#likeMovieState").find("span").text(data["message"]);
-                $("#likeMovieState").fadeIn();
+                $("#likeMovieState").fadeIn("slow");
             }
         },
         error: function(xhr, status, error) {
@@ -171,14 +171,14 @@ function addDislikeOnComment(commentId){
                 $("#likeMovieState").removeClass("alert-warning");
                 $("#likeMovieState").addClass("alert-" + data["class"]);
                 $("#likeMovieState").find("span").text(data["message"]);
-                $("#likeMovieState").fadeIn();
+                $("#likeMovieState").fadeIn("slow");
                 $("#dislikeComment" + commentId).text(data["dislikeNumber"])
             }
             else{
                 $("#likeMovieState").removeClass("alert-success");
                 $("#likeMovieState").addClass("alert-" + data["class"]);
                 $("#likeMovieState").find("span").text(data["message"]);
-                $("#likeMovieState").fadeIn();
+                $("#likeMovieState").fadeIn("slow");
             }
         },
         error: function(xhr, status, error) {
@@ -190,22 +190,3 @@ function addDislikeOnComment(commentId){
 $(".remove-event").click(function(event){
     event.preventDefault();
 });
-
-/*function loadPageOnScroll(depth){
-    $(window).scroll(function(){
-        if($(window).scrollTop() == $(document).height() - $(window).height()){
-            var path = 'https://api.themoviedb.org/3/movie/now_playing?api_key=1ec8fb13de4288846a552aa419f958c2&language=fr-FR&page='+depth+'&region=FR'
-            $.ajax({
-                type: "GET",
-                url: path,
-                success: function(data){
-                    console.log(data)
-                    loadPageOnScroll(depth++)
-                },
-                error: function(xhr, status, error) {
-                    console.log(error);
-                }
-            });
-        }
-    })
-}*/
