@@ -12,3 +12,14 @@ services:
          public: false
          tags:
             - { name: twig.extension }
+
+    insert_movie_user_playlist:
+         class: AppBundle\Services\InsertMovieUserPlaylist
+         arguments:
+            - "@doctrine.orm.entity_manager"
+
+    like_comment_manager:
+         class: AppBundle\Services\LikeCommentManager
+         arguments:
+            - "@request_stack"
+            - "@doctrine.orm.entity_manager"

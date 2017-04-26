@@ -3,16 +3,13 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comment;
-use AppBundle\Entity\MovieUser;
 use AppBundle\Form\CommentType;
-use AppBundle\Entity\Movie;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Cookie;
 class UserController extends Controller
 {
     /**
@@ -93,48 +90,14 @@ class UserController extends Controller
      */
     public function addFavoriteMovieAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
         if($request->isXmlHttpRequest()){
             $user = $this->getUser();
             $data = $request->request->all();
-            $movieInDatabase = $em->getRepository('AppBundle:Movie')->findMovieInDatabase($data['Movie_Id']);
-            if(isset($movieInDatabase)){
-                $movieUserInDatabase = $em->getRepository('AppBundle:MovieUser')->findMovieUserInDatabase($user->getId(), $movieInDatabase->getId());
-                if(isset($movieUserInDatabase))
-                    $favoriteMovie = $movieUserInDatabase->getFavoriteMovie();
-            }
-            // If movie is in database and movieUser does not exist, only add new movieUser
-            if(isset($movieInDatabase) && empty($movieUserInDatabase)){
-                $movieUser = new MovieUser();
-                $movieUser->setFavoriteMovie(true);
-                $movieUser->setUser($user);
-                $movieUser->setMovie($movieInDatabase);
-
-                $em->persist($movieUser);
-            }
-            elseif(isset($movieInDatabase) && isset($favoriteMovie)){
-                return new JsonResponse(array("state" => "error"));
-            }
-            elseif(isset($movieInDatabase) && $favoriteMovie == null){
-                $movieUserInDatabase->setFavoriteMovie(true);
-            }
-            else{
-                $movie = new Movie();
-                $movie->setMovieDbId($data['Movie_Id']);
-                $movie->setTitle($data['Movie_Title']);
-                $movie->setPosterPath($data['Poster_Path']);
-
-                $movieUser = new MovieUser();
-                $movieUser->setFavoriteMovie(true);
-                $movieUser->setUser($user);
-                $movieUser->setMovie($movie);
-
-                $em->persist($movieUser);
-            }
-            $em->flush();
+            $insertMoviePlaylist = $this->container->get('insert_movie_user_playlist');
+            $state = $insertMoviePlaylist->insertFavoriteMovie($user, $data);
         }
 
-        return new JsonResponse(array("state" => "success"));
+        return new JsonResponse(array("state" => $state));
     }
 
     /**
@@ -165,48 +128,14 @@ class UserController extends Controller
      */
     public function addMovieToWatchAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
         if($request->isXmlHttpRequest()){
             $user = $this->getUser();
             $data = $request->request->all();
-            $movieInDatabase = $em->getRepository('AppBundle:Movie')->findMovieInDatabase($data['Movie_Id']);
-            if(isset($movieInDatabase)){
-                $movieUserInDatabase = $em->getRepository('AppBundle:MovieUser')->findMovieUserInDatabase($user->getId(), $movieInDatabase->getId());
-                if(isset($movieUserInDatabase))
-                    $movieToWatch = $movieUserInDatabase->getMovieToWatch();
-            }
-            // If movie is in database and movieUser does not exist, only add new movieUser
-            if(isset($movieInDatabase) && empty($movieUserInDatabase)){
-                $movieUser = new MovieUser();
-                $movieUser->setMovieToWatch(true);
-                $movieUser->setUser($user);
-                $movieUser->setMovie($movieInDatabase);
-
-                $em->persist($movieUser);
-            }
-            elseif(isset($movieInDatabase) && isset($movieToWatch)){
-                return new JsonResponse(array("state" => "error"));
-            }
-            elseif(isset($movieInDatabase) && $movieToWatch == null){
-                $movieUserInDatabase->setMovieToWatch(true);
-            }
-            else{
-                $movie = new Movie();
-                $movie->setMovieDbId($data['Movie_Id']);
-                $movie->setTitle($data['Movie_Title']);
-                $movie->setPosterPath($data['Poster_Path']);
-
-                $movieUser = new MovieUser();
-                $movieUser->setMovieToWatch(true);
-                $movieUser->setUser($user);
-                $movieUser->setMovie($movie);
-
-                $em->persist($movieUser);
-            }
-            $em->flush();
+            $insertMoviePlaylist = $this->container->get('insert_movie_user_playlist');
+            $state = $insertMoviePlaylist->insertMovieToWatch($user, $data);
         }
 
-        return new JsonResponse(array("state" => "success"));
+        return new JsonResponse(array("state" => $state));
     }
 
     /**
@@ -238,47 +167,10 @@ class UserController extends Controller
         if($request->isXmlHttpRequest()){
             $data = $request->request->all();
             $id = $data['Comment_Id'];
-            $em = $this->getDoctrine()->getManager();
-            $comment = $em->getRepository('AppBundle:Comment')->find($id);
-            $likeNumber = $comment->getCommentLike();
-            $username = $comment->getUser()->getUsername();
+            $likeCommentManager = $this->container->get('like_comment_manager');
+            $addLikeData = $likeCommentManager->addLike($id);
         }
-
-        $getCookies = $request->cookies->get('intothemovieCookie');
-        if(isset($getCookies)){
-            $getCookiesArray = json_decode($getCookies, true);
-            if(array_key_exists("comment".$id, $getCookiesArray)){
-               return new JsonResponse(array('message' => 'Vous ne pouvez pas like ou dislike un même commentaire', 'likeNumber' => $likeNumber, 'class' => 'warning'));
-            }
-            else{
-                $newLikeNumber = $likeNumber + 1;
-                $comment->setCommentLike($newLikeNumber);
-                $em->persist($comment);
-                $em->flush();
-
-                $getCookiesArray["comment".$id] = 1;
-                $cookieJson = json_encode($getCookiesArray);
-                $cookie = new Cookie('intothemovieCookie', $cookieJson, strtotime("+1 year"));
-                $response = new Response();
-                $response->headers->setCookie($cookie);
-                $response->send();
-                return new JsonResponse(array('message' => 'Vous venez de like le commentaire de : '. $username, 'likeNumber' => $newLikeNumber, 'class' => 'success'));
-            }
-        }
-        else{
-            $newLikeNumber = $likeNumber + 1;
-            $comment->setCommentLike($newLikeNumber);
-            $em->persist($comment);
-            $em->flush();
-
-            $setCookieArray = array("comment".$id => 1);
-            $cookieJson = json_encode($setCookieArray);
-            $cookie = new Cookie('intothemovieCookie', $cookieJson, strtotime("+1 year"));
-            $response = new Response();
-            $response->headers->setCookie($cookie);
-            $response->send();
-            return new JsonResponse(array('message' => 'Vous venez de like le commentaire de : '. $username, 'likeNumber' => $newLikeNumber, 'class' => 'success'));
-        }
+        return new JsonResponse($addLikeData);
     }
 
     /**
@@ -290,46 +182,10 @@ class UserController extends Controller
         if($request->isXmlHttpRequest()){
             $data = $request->request->all();
             $id = $data['Comment_Id'];
-            $em = $this->getDoctrine()->getManager();
-            $comment = $em->getRepository('AppBundle:Comment')->find($id);
-            $dislikeNumber = $comment->getCommentDislike();
-            $username = $comment->getUser()->getUsername();
-        }
 
-        $getCookies = $request->cookies->get('intothemovieCookie');
-        if(isset($getCookies)){
-            $getCookiesArray = json_decode($getCookies, true);
-            if(array_key_exists("comment".$id, $getCookiesArray)){
-                return new JsonResponse(array('message' => 'Vous ne pouvez pas like ou dislike un même commentaire', 'dislikeNumber' => $dislikeNumber, 'class' => 'warning'));
-            }
-            else{
-                $newDislikeNumber = $dislikeNumber + 1;
-                $comment->setCommentDislike($newDislikeNumber);
-                $em->persist($comment);
-                $em->flush();
-
-                $getCookiesArray["comment".$id] = 1;
-                $cookieJson = json_encode($getCookiesArray);
-                $cookie = new Cookie('intothemovieCookie', $cookieJson, strtotime("+1 year"));
-                $response = new Response();
-                $response->headers->setCookie($cookie);
-                $response->send();
-                return new JsonResponse(array('message' => 'Vous venez de dislike le commentaire de : '. $username, 'dislikeNumber' => $newDislikeNumber, 'class' => 'success'));
-            }
+            $likeCommentManager = $this->container->get('like_comment_manager');
+            $addDislikeData = $likeCommentManager->addDislike($id);
         }
-        else{
-            $newDislikeNumber = $dislikeNumber + 1;
-            $comment->setCommentDislike($newDislikeNumber);
-            $em->persist($comment);
-            $em->flush();
-
-            $setCookieArray = array("comment".$id => 1);
-            $cookieJson = json_encode($setCookieArray);
-            $cookie = new Cookie('intothemovieCookie', $cookieJson, strtotime("+1 year"));
-            $response = new Response();
-            $response->headers->setCookie($cookie);
-            $response->send();
-            return new JsonResponse(array('message' => 'Vous venez de dislike le commentaire de : '. $username, 'dislikeNumber' => $newDislikeNumber, 'class' => 'success'));
-        }
+        return new JsonResponse($addDislikeData);
     }
 }
