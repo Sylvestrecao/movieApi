@@ -4,7 +4,7 @@
         <div class="panel panel-white post">
             <div class="post-heading">
                 <div class="pull-left image">
-                    <img src="{{ asset('img/user.jpg') }}" class="img-circle avatar" alt="user profile image">
+                    <img src="{% if child.user.profileImage is not null %}{{ asset('uploads/img/' ~ child.user.profileImage.url) }}{% else %}{{ asset('img/user.jpg') }}{% endif %}" class="img-circle avatar" alt="user profile image">
                 </div>
                 <div class="pull-left meta">
                     <div class="title h5">
