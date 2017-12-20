@@ -13,7 +13,7 @@ use Symfony\Component\Debug\Debug;
 if (!in_array(@$_SERVER['REMOTE_ADDR'], array(
     '127.0.0.1',
     '::1',
-    '176.160.65.68'
+    '156.250.45.78'
 ))) {
     header('HTTP/1.0 403 Forbidden');
     exit('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');
